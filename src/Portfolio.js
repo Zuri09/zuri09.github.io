@@ -19,7 +19,7 @@ const DATA = {
   blurb:
     "I break things thoughtfully, then help teams fix them. Bug bounty, DFIR tooling, and security research.",
   cta: {
-    resumeUrl: "https://drive.google.com/file/d/16hpLDmiotJtLdjnDYJjmWf8fET_CRCRp/view?usp=sharing",
+    resumeUrl: "https://drive.google.com/file/d/1WDZUR9_Ws3EjYJP_Az1PnUPiA1xfen7m/view?usp=sharing",
     email: "mailto:devanshpatel.work@gmail.com",
     linkedin: "https://www.linkedin.com/in/devanshpatelcybersecurity",
     github: "https://github.com/Zuri09",
@@ -128,7 +128,7 @@ const DATA = {
     },
   ],
 
-  certs: ["ISC2 CC", "SecOps Group CAP v2", "SecOps Group CNSP", "CYBERWAREFARE LABS C3SA", "HoF: Nykaa", "Hof: QuickWork", "Hof: USGOV", "Hof: SINGAPORE GOV"],
+  certs: ["ISC2 CC", "SecOps Group CAP v2", "SecOps Group CNSP", "CYBERWAREFARE LABS C3SA"],
 
   // NEW: Hall of Fame logos (replace `logo` with your image path or /public path; add url to link it)
   hof: [
@@ -137,7 +137,9 @@ const DATA = {
     { name: "HoF 3", logo: "/logos/QUICKWORK.png", url: "#" },
     { name: "HoF 4", logo: "/logos/SINGAPOURE.jpg", url: "#" },
     { name: "HoF 5", logo: "/logos/HDFCLIFE.png", url: "#" },
-    { name: "HoF 5", logo: "/logos/SGRH.png", url: "#" },
+    { name: "HoF 6", logo: "/logos/SGRH.png", url: "#" },
+    { name: "HoF 7", logo: "/logos/NBC.png", url: "#" },
+    { name: "HoF 8", logo: "/logos/DTDC.png", url: "#" },
   ],
 };
 
