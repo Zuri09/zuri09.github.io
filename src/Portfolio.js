@@ -574,6 +574,15 @@ export default function Portfolio() {
                 Email me
               </a>
               <a
+                href={DATA.cta.linkedin}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
+              >
+                <Linkedin className="h-4 w-4" />
+                LinkedIn
+              </a>
+              <a
                 href={DATA.cta.medium}
                 target="_blank"
                 rel="noreferrer"
