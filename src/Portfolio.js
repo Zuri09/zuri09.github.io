@@ -37,9 +37,9 @@ const DATA = {
     x: "https://x.com/zuriinsecurity",
   },
   stats: [
-    { value: "91", label: "Reported vulnerabilities" },
-    { value: "66.25%", label: "Com Olho acceptance ratio" },
-    { value: "#33", label: "Com Olho global rank" },
+    { value: "91", label: "Reported vulns" },
+    { value: "66.25%", label: "Acceptance ratio" },
+    { value: "#33", label: "Global rank" },
   ],
   highlights: [
     { icon: <Shield className="h-4 w-4" />, label: "Web / API VAPT" },
@@ -415,8 +415,13 @@ export default function Portfolio() {
                   </div>
                   <div className="grid grid-cols-3 gap-3">
                     {DATA.stats.map((stat) => (
-                      <div key={stat.label} className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
-                        <p className="text-2xl font-semibold text-white">{stat.value}</p>
+                      <div
+                        key={stat.label}
+                        className="min-w-0 rounded-lg border border-white/10 bg-white/[0.04] p-4"
+                      >
+                        <p className="whitespace-nowrap text-[clamp(1.65rem,3vw,2.35rem)] font-semibold leading-none tracking-normal text-white">
+                          {stat.value}
+                        </p>
                         <p className="mt-1 text-xs leading-5 text-slate-400">{stat.label}</p>
                       </div>
                     ))}
