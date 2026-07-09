@@ -1,377 +1,616 @@
 import { useState, useEffect } from "react";
 import {
   ArrowRight,
-  Download,
-  Mail,
-  Github,
-  Linkedin,
-  Shield,
+  Award,
+  Briefcase,
   Bug,
-  FileCode,
+  CheckCircle2,
   Cpu,
-  Twitter,       // for X button
-  FileText       // for Medium button
+  Download,
+  ExternalLink,
+  FileCode,
+  FileText,
+  Github,
+  GraduationCap,
+  Linkedin,
+  Mail,
+  Shield,
+  Terminal,
+  Twitter,
 } from "lucide-react";
 
 const DATA = {
   name: "Devansh Patel",
-  role: "Cybersecurity | Bug Bounty | DFIR | GRC | VAPT | BLOGGER",
+  role: "Graduate Cybersecurity Consultant",
+  tagline: "Penetration testing, security operations, DFIR, GRC, and bug bounty research",
   blurb:
-    "I break things thoughtfully, then help teams fix them. Bug bounty, DFIR tooling, and security research.",
+    "MSc Information Security candidate at UCL with hands-on experience across penetration testing, security operations, digital forensics, and risk management.",
+  location: "London, United Kingdom",
   cta: {
-    resumeUrl: "https://drive.google.com/file/d/1WDZUR9_Ws3EjYJP_Az1PnUPiA1xfen7m/view?usp=sharing",
+    resumeUrl: "/Devansh_Patel_CV.pdf",
     email: "mailto:devanshpatel.work@gmail.com",
     linkedin: "https://www.linkedin.com/in/devanshpatelcybersecurity",
     github: "https://github.com/Zuri09",
-
-    // Added: you can change these anytime
     medium: "https://medium.com/@devanshpatel930",
-    x: "https://x.com/zuriinsecurity"
+    x: "https://x.com/zuriinsecurity",
   },
-
-  // your original highlight chips (unchanged)
-  highlights: [
-    { icon: <Shield className="w-5 h-5" />, label: "DFIR tooling" },
-    { icon: <Bug className="w-5 h-5" />, label: "Bug bounty" },
-    { icon: <FileCode className="w-5 h-5" />, label: "Python / Go" },
-    { icon: <Cpu className="w-5 h-5" />, label: "AI for triage" }
+  stats: [
+    { value: "20", label: "Confirmed disclosures" },
+    { value: "2C / 4H", label: "Critical and high findings" },
+    { value: "10k+", label: "Writeup readers" },
   ],
-
+  highlights: [
+    { icon: <Shield className="h-4 w-4" />, label: "Web / API VAPT" },
+    { icon: <Bug className="h-4 w-4" />, label: "20 confirmed vulns" },
+    { icon: <FileCode className="h-4 w-4" />, label: "Python / Go" },
+    { icon: <Cpu className="h-4 w-4" />, label: "SOC and DFIR" },
+  ],
   projects: [
     {
-      title: "Missing Person Portal",
-      stack: ["HTML", "CSS", "PHP"],
-      desc:
-        "Developed and deployed a robust missing person reporting portal, resulting in a 40% reduction in reporting time and enhancing public engagement by providing real-time updates and notificationsports.",
-      link: "https://github.com/Zuri09/MissingPersonPortal",
-    },
-    {
       title: "ReconRaptor",
-      stack: ["Bash", "Go", "httpx", "subfinder", "nuclei"],
+      stack: ["Bash", "Go", "subfinder", "httpx", "waybackurls"],
       desc:
-        "One-liner recon pipeline with pretty CLI, installers, and env setup for quick bounty hunts.",
+        "A Bash and Go recon automation pipeline that reduced average reconnaissance time by roughly 30% across 23 assessments.",
       link: "https://github.com/Zuri09/ReconRaptor",
+      type: "Security automation",
     },
     {
       title: "Dorkinator",
       stack: ["Python", "Regex", "AST"],
       desc:
-        "Google Dorks Generator for Bug Bounty and Vapt",
+        "A Google dork generator for bug bounty and VAPT research, built to speed up discovery and targeting.",
       link: "https://github.com/Zuri09/Dorkinator",
+      type: "Research tooling",
+    },
+    {
+      title: "Missing Person Portal",
+      stack: ["HTML", "CSS", "PHP"],
+      desc:
+        "A reporting portal that reduced reporting time and improved public engagement with real-time updates.",
+      link: "https://github.com/Zuri09/MissingPersonPortal",
+      type: "Public safety platform",
     },
   ],
-
   skills: {
-    core: ["Web App Sec", "DFIR", "Threat Hunting", "GRC"],
+    core: [
+      "Manual Web/API VAPT",
+      "OWASP Top 10",
+      "CVSS v3.1",
+      "Threat modelling",
+      "Vulnerability triage",
+      "Incident response support",
+      "Risk reporting",
+      "DFIR triage",
+    ],
     tools: [
       "Burp Suite",
       "Nmap",
+      "Nessus",
       "Wireshark",
-      "Volatility",
-      "YARA",
+      "Shodan",
+      "Maltego",
+      "Magnet AXIOM",
+      "Autopsy",
+      "FTK",
       "nuclei",
       "subfinder",
       "httpx",
-      "sqlmap",
-      "ParamSpider",
-      "Kibana",
-      "Splunk"
+      "waybackurls",
+      "ELK Stack",
+      "Splunk",
     ],
-    code: ["Python", "Go", "Bash", "JavaScript"],
+    code: [
+      "Python",
+      "Bash",
+      "Go",
+      "SQL",
+      "Git",
+      "AWS/Azure/GCP fundamentals",
+      "IAM/PAM",
+      "Zero Trust",
+      "DevSecOps concepts",
+      "MITRE ATT&CK",
+      "ISO 27001",
+      "NIST CSF",
+      "GDPR",
+    ],
   },
-
   experience: [
     {
-      org: "Aetheris (Cybersecurity Analyst)",
-      when: "Jan 2025 – May 2025",
+      org: "HackerOne, Bugcrowd, YesWeHack",
+      role: "Bug Bounty Researcher (Freelance)",
+      when: "Aug 2024 - Present",
       points: [
-        "Led VAPT for web apps; wrote reproducible PoCs and remediation." ,
-        "Built scripts to automate recon and finding triage-ready issues.",
-        "Conducted computer and mobile forensic investigations on real-world cases and prepared detailed reports outlining findings and evidence using Magnet Axiom, Cellbrite UFED, Recuva, Mobiledit, Oxygen Forensics.",
-        "Assisted in VAPT network and web application using tools like Burp Suite and Nmap, and documented security issues along with recommended mitigations."
+        "Provided PoCs, CVSS v3.1 mapped severity ratings, and remediation guidance for 20 responsibly disclosed vulnerabilities: 2 Critical, 4 High, 6 Medium, and 8 Low.",
+        "Built ReconRaptor, a Bash and Go automation pipeline integrating subfinder, httpx, and waybackurls, reducing average reconnaissance time by approximately 30% across 23 assessments.",
+        "Earned Hall of Fame recognition across multiple programs and published 10+ technical write-ups on InfoSecWriteups and Medium covering XSS, CSRF, SSRF, and broader AppSec topics.",
       ],
     },
     {
-      org: "eSecurify Technologies (VAPT Intern)",
-      when: "June 2024 – December 2024",
-      points: ["Led in live VAPT projects involving web application security assessments for clients.",
-        "Discovered vulnerabilities in client websites and reported them with proper remediation guidance.",
-        ["Gained hands-on experience with OWASP Top 10 vulnerabilities and responsible disclosure."]
+      org: "Aethris Technologies",
+      role: "Cyber Security Analyst (Contract)",
+      when: "Jan 2025 - May 2025",
+      points: [
+        "Authored a standardised risk and control report template and triage checklist, reducing median investigation closure from 3.4 to 2.3 days across 20 cases.",
+        "Produced prioritised risk and control reports for IT, compliance, and leadership stakeholders, tracking remediation progress and advising on control improvements.",
       ],
     },
     {
-      org: "Cyber Crime Helpline LLP(Digital Forensics Intern)",
-      when: "June 2023 – August 2023",
-      points: ["Hands onCreated and implemented batch (BAT) files, reducing manual workload effectively by 50%.",
-        ["Examined digital devices for forensic purposes, including mobile phones also recovered lost data using tools like Recuva , Magnet Axiom, and Mobiledit"]
+      org: "eSecurify Technologies",
+      role: "Cyber Security Intern (Web/API VAPT)",
+      when: "Jun 2024 - Dec 2024",
+      points: [
+        "Supported two rounds of remediation verification with the client engineering team across a 3-week web and REST API VAPT engagement.",
+        "Identified vulnerabilities mapped to OWASP Top 10 and CVSS v3.1 through manual and automated testing on a 2-person team under senior consultant supervision.",
+        "Co-authored prioritised technical reports with actionable mitigations and policy recommendations.",
       ],
     },
     {
-      org: "Flip Location Pvt Ltd (Frontend Tester)",
-      when: "June 2022 – August 2022",
-      points: ["Performance, security, cross-browser, and unit testing in multiple web applications.",
-        ["Collaborated with the development team to improve the overall quality of the application."]
+      org: "Cyber Crime Helpline LLP",
+      role: "Digital Forensics Intern",
+      when: "Jun 2023 - Aug 2023",
+      points: [
+        "Processed 8 case files using Magnet AXIOM, Autopsy, and FTK.",
+        "Automated repetitive analysis tasks with BAT scripting, reducing manual effort by approximately 50% and improving consistency across cases.",
       ],
     },
   ],
-
   education: [
     {
-      where: "UCL – MSc Information Security",
-      when: "Starting Sep 2025",
-      detail: "Focus: DFIR, AppSec, GRC."
+      where: "UCL",
+      degree: "MSc Information Security",
+      when: "Sep 2025 - Sep 2026",
+      detail:
+        "Dissertation: adapting Tor exit node detection techniques to commercial VPN providers using ASN/BGP clustering, JA3/JA4 TLS fingerprinting, and latency/jitter profiling.",
     },
     {
-      where: "SSPU – B.Tech CS & IT (Cyber Security)",
-      when: "2019 – 2025",
-      detail: "Graduated."
+      where: "SSPU",
+      degree: "B.Tech CS & IT, Cyber Security",
+      when: "Sep 2021 - May 2025",
+      detail: "Cybersecurity graduate with applied work across AppSec, OSINT, and forensics.",
     },
   ],
-
-  certs: ["ISC2 CC", "SecOps Group CAP v2", "SecOps Group CNSP", "CYBERWAREFARE LABS C3SA"],
-
-  // NEW: Hall of Fame logos (replace `logo` with your image path or /public path; add url to link it)
+  certs: [
+    "ISC2 Certified in Cybersecurity (CC)",
+    "SecOps Group CNSP",
+    "SecOps Group CAP",
+    "Cyber Warfare Labs C3SA",
+    "CompTIA Security+ in progress",
+  ],
   hof: [
-    { name: "HoF 1", logo: "/logos/BIA.png", url: "#" },
-    { name: "HoF 2", logo: "/logos/NYKAA.png", url: "#" },
-    { name: "HoF 3", logo: "/logos/QUICKWORK.png", url: "#" },
-    { name: "HoF 4", logo: "/logos/SINGAPOURE.jpg", url: "#" },
-    { name: "HoF 5", logo: "/logos/HDFCLIFE.png", url: "#" },
-    { name: "HoF 6", logo: "/logos/SGRH.png", url: "#" },
-    { name: "HoF 7", logo: "/logos/NBC.png", url: "#" },
-    { name: "HoF 8", logo: "/logos/DTDC.png", url: "#" },
+    { name: "BIA", logo: "/logos/BIA.png", url: "#" },
+    { name: "Nykaa", logo: "/logos/NYKAA.png", url: "#" },
+    { name: "Quickwork", logo: "/logos/QUICKWORK.png", url: "#" },
+    { name: "Singapore", logo: "/logos/SINGAPOURE.jpg", url: "#" },
+    { name: "HDFC Life", logo: "/logos/HDFCLIFE.png", url: "#" },
+    { name: "SGRH", logo: "/logos/SGRH.png", url: "#" },
+    { name: "NBC", logo: "/logos/NBC.png", url: "#" },
+    { name: "DTDC", logo: "/logos/DTDC.png", url: "#" },
+    { name: "Dabur", logo: "/logos/DABUR.png", url: "#" },
+    { name: "Tata Motors", logo: "/logos/TATAMOTORS.png", url: "#" },
+    { name: "Ixigo", logo: "/logos/IXIGO.png", url: "#" },
+    { name: "Elan", logo: "/logos/ELAN.png", url: "#" },
+    { name: "CK Birla", logo: "/logos/CKBIRLA.png", url: "#" },
+    { name: "Com Olho", logo: "/logos/COMOLHO.png", url: "#" },
+    { name: "PNB Housing", logo: "/logos/PNB_HOUSING.png", url: "#" },
+    { name: "Allcargo", logo: "/logos/ALLCARGO.png", url: "#" },
+    { name: "Max Healthcare", logo: "/logos/MAX_HEALTHCARE.png", url: "#" },
+    { name: "Perfios", logo: "/logos/Perfios.png", url: "#" },
   ],
 };
+
+const navItems = [
+  ["Vulns", "#found-vulnerabilities"],
+  ["Experience", "#experience"],
+  ["Work", "#projects"],
+  ["Skills", "#skills"],
+  ["Education", "#education"],
+  ["Contact", "#contact"],
+];
+
+function SectionHeading({ eyebrow, title, children }) {
+  return (
+    <div className="mb-8 max-w-3xl">
+      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">
+        {eyebrow}
+      </p>
+      <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">{title}</h2>
+      {children ? <p className="mt-4 text-base leading-7 text-slate-300">{children}</p> : null}
+    </div>
+  );
+}
+
+function Pill({ children, tone = "slate" }) {
+  const tones = {
+    slate: "border-slate-700 bg-slate-900 text-slate-200",
+    cyan: "border-cyan-400/30 bg-cyan-400/10 text-cyan-100",
+    amber: "border-amber-300/30 bg-amber-300/10 text-amber-100",
+  };
+
+  return (
+    <span className={`inline-flex items-center gap-2 rounded-md border px-3 py-1 text-xs ${tones[tone]}`}>
+      {children}
+    </span>
+  );
+}
 
 export default function Portfolio() {
   const [year, setYear] = useState(new Date().getFullYear());
   useEffect(() => setYear(new Date().getFullYear()), []);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100">
-      {/* NAV */}
-      <header className="sticky top-0 backdrop-blur bg-gray-950/70 border-b border-gray-800 z-30">
-        <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
-          <a href=" " className="font-semibold tracking-tight text-white">devansh<span className="text-indigo-400">.security</span></a>
-          <nav className="hidden md:flex gap-6 text-sm">
-            {[
-              ["About", "#about"],
-              ["Projects", "#projects"],
-              ["Skills", "#skills"],
-              ["Experience", "#experience"],
-              ["Education", "#education"],
-              ["Contact", "#contact"],
-            ].map(([label, href]) => (
-              <a key={label} href={href} className="text-gray-300 hover:text-white">{label}</a>
+    <div className="min-h-screen bg-[#071014] text-slate-100 antialiased">
+      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#071014]/85 backdrop-blur-xl">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
+          <a href="#home" className="group flex items-center gap-3" aria-label="Go to home">
+            <span className="grid h-9 w-9 place-items-center rounded-md border border-cyan-300/30 bg-cyan-300/10 text-sm font-bold text-cyan-100">
+              DP
+            </span>
+            <span className="hidden text-sm font-semibold tracking-tight text-white sm:block">
+              devansh.security
+            </span>
+          </a>
+          <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
+            {navItems.map(([label, href]) => (
+              <a key={label} href={href} className="transition hover:text-white">
+                {label}
+              </a>
             ))}
           </nav>
+          <a
+            href={DATA.cta.email}
+            className="inline-flex h-10 items-center gap-2 rounded-md bg-white px-4 text-sm font-semibold text-slate-950 transition hover:bg-cyan-100"
+          >
+            <Mail className="h-4 w-4" />
+            <span className="hidden sm:inline">Contact</span>
+          </a>
         </div>
       </header>
 
-      {/* HERO */}
-      <section id="home" className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-transparent to-fuchsia-900/20 pointer-events-none -z-10" />
-        <div className="mx-auto max-w-6xl px-4 py-20 md:py-28 grid md:grid-cols-2 gap-10 items-center">
-          <div>
-            <p className="text-indigo-400 text-xs uppercase tracking-widest mb-3">Portfolio</p>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              {DATA.name}
-            </h1>
-            <p className="mt-3 text-xl text-gray-300">{DATA.role}</p>
-            <p className="mt-5 text-gray-400 max-w-prose">{DATA.blurb}</p>
+      <main>
+        <section id="home" className="relative overflow-hidden border-b border-white/10">
+          <div className="absolute inset-0 security-grid opacity-40" />
+          <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-[1.05fr_0.95fr] md:py-24 lg:py-28">
+            <div className="flex flex-col justify-center">
+              <div className="mb-6 flex flex-wrap gap-2">
+                <Pill tone="cyan">
+                  <Shield className="h-3.5 w-3.5" />
+                  Available for security roles
+                </Pill>
+                <Pill tone="amber">
+                  <Terminal className="h-3.5 w-3.5" />
+                  {DATA.location}
+                </Pill>
+              </div>
+              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-300">
+                {DATA.role}
+              </p>
+              <h1 className="mt-4 max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-7xl">
+                {DATA.name}
+              </h1>
+              <p className="mt-5 max-w-2xl text-xl leading-8 text-slate-300">{DATA.tagline}</p>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-400">{DATA.blurb}</p>
 
-            {/* CTA BUTTONS (added Medium + X) */}
-            <div className="mt-6 flex flex-wrap gap-3">
-              <a href={DATA.cta.resumeUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 bg-indigo-500 hover:bg-indigo-600 transition">
-                <Download className="w-4 h-4" /> <span>Resume</span>
-              </a>
-              <a href={DATA.cta.email} className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 border border-gray-700 hover:border-gray-500">
-                <Mail className="w-4 h-4" /> <span>Contact</span>
-              </a>
-              <a href={DATA.cta.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 border border-gray-700 hover:border-gray-500">
-                <Github className="w-4 h-4" /> <span>GitHub</span>
-              </a>
-              <a href={DATA.cta.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 border border-gray-700 hover:border-gray-500">
-                <Linkedin className="w-4 h-4" /> <span>LinkedIn</span>
-              </a>
-              <a href={DATA.cta.medium} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 border border-gray-700 hover:border-gray-500">
-                <FileText className="w-4 h-4" /> <span>Medium</span>
-              </a>
-              <a href={DATA.cta.x} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 border border-gray-700 hover:border-gray-500">
-                <Twitter className="w-4 h-4" /> <span>X</span>
-              </a>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <a
+                  href={DATA.cta.resumeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-11 items-center gap-2 rounded-md bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
+                >
+                  <Download className="h-4 w-4" />
+                  Resume
+                </a>
+                <a
+                  href={DATA.cta.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-11 items-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
+                >
+                  <Github className="h-4 w-4" />
+                  GitHub
+                </a>
+                <a
+                  href={DATA.cta.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-11 items-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
+                >
+                  <Linkedin className="h-4 w-4" />
+                  LinkedIn
+                </a>
+                <a
+                  href={DATA.cta.medium}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex h-11 items-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
+                >
+                  <FileText className="h-4 w-4" />
+                  Medium
+                </a>
+              </div>
+
+              <div className="mt-8 flex flex-wrap gap-2">
+                {DATA.highlights.map((item) => (
+                  <Pill key={item.label}>
+                    {item.icon}
+                    {item.label}
+                  </Pill>
+                ))}
+              </div>
             </div>
 
-            {/* your original chips (unchanged) */}
-            <div className="mt-6 flex flex-wrap gap-2">
-              {DATA.highlights.map((h, i) => (
-                <span key={i} className="inline-flex items-center gap-2 text-xs bg-gray-800 border border-gray-700 rounded-full px-3 py-1">
-                  {h.icon} {h.label}
-                </span>
+            <div className="relative">
+              <div className="grid gap-4 sm:grid-cols-[0.82fr_1fr] md:grid-cols-1 lg:grid-cols-[0.82fr_1fr]">
+                <div className="overflow-hidden rounded-lg border border-white/10 bg-slate-900">
+                  <img
+                    src="/profile.png"
+                    alt="Devansh Patel"
+                    className="aspect-[4/5] h-full w-full object-cover"
+                    loading="eager"
+                  />
+                </div>
+                <div className="grid content-between gap-4">
+                  <div className="rounded-lg border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20">
+                    <div className="mb-5 flex items-center justify-between">
+                      <div>
+                        <p className="text-xs uppercase tracking-[0.22em] text-slate-400">
+                          Current focus
+                        </p>
+                        <p className="mt-2 text-lg font-semibold text-white">AppSec + GRC + DFIR</p>
+                      </div>
+                      <Shield className="h-8 w-8 text-cyan-300" />
+                    </div>
+                    <div className="space-y-3">
+                      {["CVSS-mapped PoCs", "Risk and control reports", "Security writeups"].map((item) => (
+                        <div key={item} className="flex items-center gap-3 text-sm text-slate-300">
+                          <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-3 gap-3">
+                    {DATA.stats.map((stat) => (
+                      <div key={stat.label} className="rounded-lg border border-white/10 bg-white/[0.04] p-4">
+                        <p className="text-2xl font-semibold text-white">{stat.value}</p>
+                        <p className="mt-1 text-xs leading-5 text-slate-400">{stat.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="about" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
+          <div className="grid gap-8 lg:grid-cols-[0.72fr_1fr]">
+            <SectionHeading eyebrow="Intro" title="Security work with clear evidence and useful remediation.">
+              I translate technical findings into stakeholder-facing reports, PoCs, severity ratings,
+              and control improvements that help teams fix issues at pace.
+            </SectionHeading>
+            <div className="rounded-lg border border-white/10 bg-white/[0.04] p-6 text-base leading-8 text-slate-300">
+              My experience spans public bug bounty programs, web and REST API VAPT, security
+              operations concepts, digital forensics, and risk management. I am familiar with ISO
+              27001, GDPR, NIST CSF, MITRE ATT&CK, and CVSS v3.1, and I am comfortable working
+              across both offensive and defensive security initiatives.
+            </div>
+          </div>
+        </section>
+
+        <section id="found-vulnerabilities" className="border-y border-white/10 bg-white/[0.025]">
+          <div className="mx-auto max-w-7xl px-5 py-16 md:py-20">
+            <SectionHeading eyebrow="Recognition" title="Found Vulnerabilities In">
+              Public programs and organizations where my responsible disclosure and security
+              research work identified real security issues.
+            </SectionHeading>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-9">
+              {DATA.hof.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.url || "#"}
+                  target={item.url && item.url !== "#" ? "_blank" : undefined}
+                  rel={item.url && item.url !== "#" ? "noreferrer" : undefined}
+                  className="group flex h-24 items-center justify-center rounded-lg border border-white/10 bg-white p-3 transition hover:-translate-y-1 hover:border-cyan-300/60"
+                  aria-label={item.name}
+                >
+                  <img
+                    src={item.logo}
+                    alt={item.name}
+                    className="max-h-12 max-w-full object-contain transition group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </a>
               ))}
             </div>
           </div>
-          <div className="relative">
-  <div className="aspect-square rounded-3xl overflow-hidden border border-gray-800 shadow-2xl">
-    <img
-      src="/profile.png"              // <- your file in /public
-      alt="Devansh Patel"
-      className="w-full h-full object-cover"
-      loading="lazy"
-    />
-  </div>
-  <div className="absolute inset-0 -z-10 blur-3xl bg-indigo-600/10" />
-</div>
+        </section>
 
-        </div>
-      </section>
+        <section id="experience" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
+          <SectionHeading eyebrow="Experience" title="Security roles across bug bounty, VAPT, GRC, and forensics.">
+            Recent work combining CVSS-mapped vulnerability reporting, remediation support,
+            risk/control reporting, and evidence-led investigation.
+          </SectionHeading>
+          <div className="space-y-4">
+            {DATA.experience.map((item) => (
+              <article
+                key={`${item.org}-${item.when}`}
+                className="grid gap-5 rounded-lg border border-white/10 bg-[#0b171d] p-6 md:grid-cols-[0.34fr_1fr]"
+              >
+                <div>
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-md bg-amber-300/10 text-amber-200">
+                    <Briefcase className="h-5 w-5" />
+                  </div>
+                  <p className="text-sm text-slate-400">{item.when}</p>
+                  <h3 className="mt-2 text-lg font-semibold text-white">{item.org}</h3>
+                  <p className="mt-1 text-sm text-cyan-200">{item.role}</p>
+                </div>
+                <ul className="space-y-3 text-sm leading-6 text-slate-300">
+                  {item.points.map((point) => (
+                    <li key={point} className="flex gap-3">
+                      <CheckCircle2 className="mt-1 h-4 w-4 flex-none text-emerald-300" />
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      {/* ABOUT */}
-      <section id="about" className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-semibold mb-4">About</h2>
-        <p className="text-gray-300 max-w-3xl">
-          Here’s the thing: I enjoy tearing apart systems, documenting impact, and shipping fixes people can actually use.
-          I build tools, write clear reports, and keep learning. If it touches security, I’m curious. Along side that i am a Cybersecurity graduate with hands-on experience in VAPT, digital forensics, and OSINT. Skilled in Burp Suite, Magnet Axiom, Bash scripting, and basic SOC monitoring/log analysis. Built security tools, led VAPT teams, and improved the efficiency of investigations
-        </p>
-      </section>
+        <section id="projects" className="border-y border-white/10 bg-white/[0.025]">
+          <div className="mx-auto max-w-7xl px-5 py-16 md:py-20">
+            <SectionHeading eyebrow="Selected Work" title="Tools and projects built around real workflows.">
+              A few examples of how I package investigation, recon, and reporting into useful
+              software.
+            </SectionHeading>
+            <div className="grid gap-5 md:grid-cols-3">
+              {DATA.projects.map((project) => (
+                <a
+                  key={project.title}
+                  href={project.link}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex min-h-[280px] flex-col rounded-lg border border-white/10 bg-[#0b171d] p-6 transition hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-[#0d1c23]"
+                >
+                  <div className="mb-5 flex items-center justify-between gap-4">
+                    <Pill tone="cyan">{project.type}</Pill>
+                    <ExternalLink className="h-4 w-4 text-slate-500 transition group-hover:text-cyan-300" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-white">{project.title}</h3>
+                  <p className="mt-3 flex-1 text-sm leading-6 text-slate-400">{project.desc}</p>
+                  <div className="mt-6 flex flex-wrap gap-2">
+                    {project.stack.map((item) => (
+                      <Pill key={item}>{item}</Pill>
+                    ))}
+                  </div>
+                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200">
+                    View project
+                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
 
-      {/* PROJECTS */}
-      <section id="projects" className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-semibold mb-6">Projects</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {DATA.projects.map((p, idx) => (
-            <a key={idx} href={p.link} target="_blank" rel="noreferrer" className="group block rounded-2xl border border-gray-800 bg-gray-900/40 hover:bg-gray-900 transition shadow">
-              <div className="p-5">
-                <h3 className="font-medium text-white group-hover:text-indigo-300">{p.title}</h3>
-                <p className="mt-2 text-sm text-gray-400">{p.desc}</p>
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {p.stack.map((s) => (
-                    <span key={s} className="text-xs bg-gray-800 border border-gray-700 rounded-full px-2 py-0.5">{s}</span>
+        <section id="skills" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
+          <SectionHeading eyebrow="Capabilities" title="A practical security toolkit.">
+            Tools, languages, frameworks, and methods I use across offensive testing, security
+            operations, investigations, and reporting.
+          </SectionHeading>
+          <div className="grid gap-5 md:grid-cols-3">
+            {Object.entries(DATA.skills).map(([category, items]) => (
+              <div key={category} className="rounded-lg border border-white/10 bg-white/[0.04] p-6">
+                <h3 className="text-lg font-semibold capitalize text-white">{category}</h3>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {items.map((item) => (
+                    <Pill key={item}>{item}</Pill>
                   ))}
                 </div>
-                <div className="mt-4 inline-flex items-center gap-1 text-sm text-indigo-300">
-                  <span>View</span>
-                  <ArrowRight className="w-4 h-4" />
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section id="education" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
+          <SectionHeading eyebrow="Education" title="Academic grounding in cybersecurity.">
+            Formal study paired with hands-on security projects and professional practice.
+          </SectionHeading>
+          <div className="grid gap-5 md:grid-cols-2">
+            {DATA.education.map((item) => (
+              <article key={item.where} className="rounded-lg border border-white/10 bg-white/[0.04] p-6">
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-md bg-cyan-300/10 text-cyan-200">
+                  <GraduationCap className="h-5 w-5" />
                 </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </section>
+                <p className="text-sm text-slate-400">{item.when}</p>
+                <h3 className="mt-2 text-xl font-semibold text-white">{item.where}</h3>
+                <p className="mt-1 text-sm font-medium text-cyan-200">{item.degree}</p>
+                <p className="mt-4 text-sm leading-6 text-slate-300">{item.detail}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
-      {/* SKILLS */}
-      <section id="skills" className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-semibold mb-6">Skills</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          {Object.entries(DATA.skills).map(([cat, items]) => (
-            <div key={cat} className="rounded-2xl border border-gray-800 bg-gray-900/40 p-5">
-              <h3 className="capitalize text-white font-medium">{cat}</h3>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {items.map((i) => (
-                  <span key={i} className="text-xs bg-gray-800 border border-gray-700 rounded-full px-2 py-0.5">{i}</span>
-                ))}
-              </div>
+        <section id="certifications" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
+          <SectionHeading eyebrow="Certifications" title="Validated security fundamentals.">
+            Certifications that support my work across offensive security, SOC practice, and cloud
+            security basics.
+          </SectionHeading>
+          <div className="flex flex-wrap gap-3">
+            {DATA.certs.map((cert) => (
+              <span
+                key={cert}
+                className="inline-flex items-center gap-2 rounded-md border border-amber-300/25 bg-amber-300/10 px-4 py-2 text-sm text-amber-50"
+              >
+                <Award className="h-4 w-4 text-amber-200" />
+                {cert}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        <section id="contact" className="border-t border-white/10 bg-[#0b171d]">
+          <div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[1fr_0.8fr] md:py-20">
+            <div>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">
+                Contact
+              </p>
+              <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
+                Have a security project or role I should look at?
+              </h2>
+              <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
+                Send me the context, scope, and what success looks like. I am happy to talk about
+                VAPT, DFIR, recon tooling, or security research.
+              </p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* EXPERIENCE */}
-      <section id="experience" className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-semibold mb-6">Experience</h2>
-        <ol className="relative border-s border-gray-800 ms-3">
-          {DATA.experience.map((e, idx) => (
-            <li key={idx} className="mb-10 ms-4">
-              <div className="absolute w-3 h-3 bg-indigo-500 rounded-full mt-1.5 -start-1.5 border border-gray-900" />
-              <time className="mb-1 text-sm text-gray-400">{e.when}</time>
-              <h3 className="text-white font-medium">{e.org}</h3>
-              <ul className="list-disc ms-5 mt-2 text-gray-300 space-y-1">
-                {e.points.map((pt, i) => (
-                  <li key={i}>{pt}</li>
-                ))}
-              </ul>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      {/* EDUCATION */}
-      <section id="education" className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-semibold mb-6">Education</h2>
-        <div className="grid md:grid-cols-2 gap-6">
-          {DATA.education.map((ed, idx) => (
-            <div key={idx} className="rounded-2xl border border-gray-800 bg-gray-900/40 p-5">
-              <div className="flex items-center justify-between">
-                <h3 className="text-white font-medium">{ed.where}</h3>
-                <span className="text-sm text-gray-400">{ed.when}</span>
-              </div>
-              <p className="mt-2 text-gray-300">{ed.detail}</p>
+            <div className="flex flex-col justify-center gap-3 sm:flex-row md:flex-col">
+              <a
+                href={DATA.cta.email}
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-md bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
+              >
+                <Mail className="h-4 w-4" />
+                Email me
+              </a>
+              <a
+                href={DATA.cta.medium}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
+              >
+                <FileText className="h-4 w-4" />
+                Medium
+              </a>
+              <a
+                href={DATA.cta.x}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
+              >
+                <Twitter className="h-4 w-4" />
+                X
+              </a>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
+      </main>
 
-      {/* HALL OF FAMES (new section with 5 logo slots) */}
-      <section id="hall-of-fames" className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-semibold mb-6">Hall of Fames</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
-          {DATA.hof.map((h) => (
-            <a
-              key={h.name}
-              href={h.url || "#"}
-              target={h.url ? "_blank" : undefined}
-              rel={h.url ? "noreferrer" : undefined}
-              className="group h-20 rounded-xl border border-gray-800 bg-gray-900/40 flex items-center justify-center overflow-hidden"
-            >
-              {h.logo ? (
-                <img
-                  src={h.logo}
-                  alt={h.name}
-                  className="max-h-12 object-contain grayscale group-hover:grayscale-0 transition"
-                />
-              ) : (
-                <span className="text-xs text-gray-500">Add logo</span>
-              )}
-            </a>
-          ))}
-        </div>
-        {/* <p className="mt-3 text-xs text-gray-500">
-          Tip: put logos in <code>/public/logos/</code> and just update the paths in <code>DATA.hof</code>.
-        </p> */}
-      </section>
-
-      {/* CERTIFICATIONS (your original cert list, now separate) */}
-      <section id="certifications" className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-semibold mb-6">Certifications</h2>
-        <div className="flex flex-wrap gap-2">
-          {DATA.certs.map((c) => (
-            <span key={c} className="text-sm bg-gray-800 border border-gray-700 rounded-full px-3 py-1">
-              {c}
-            </span>
-          ))}
-        </div>
-      </section>
-
-      {/* CONTACT */}
-      <section id="contact" className="mx-auto max-w-6xl px-4 py-16">
-        <h2 className="text-2xl font-semibold mb-4">Let’s talk</h2>
-        <p className="text-gray-300 max-w-prose">Have a security project, research idea, or role I should look at? Reach out.</p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <a href={DATA.cta.email} className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 bg-white text-gray-900">
-            <Mail className="w-4 h-4" /> Email me
-          </a>
-          <a href={DATA.cta.linkedin} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl px-4 py-2 border border-gray-700">
-            <Linkedin className="w-4 h-4" /> LinkedIn
-          </a>
-        </div>
-      </section>
-
-      <footer className="border-t border-gray-800">
-        <div className="mx-auto max-w-6xl px-4 py-10 text-sm text-gray-400 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p>© {year} {DATA.name}. Stay Curious, Stay Dangerous.</p>
+      <footer className="border-t border-white/10 bg-[#071014]">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
+          <p>
+            (c) {year} {DATA.name}. Stay curious, stay dangerous.
+          </p>
           <div className="flex items-center gap-4">
-            <a href="#" className="hover:text-white">Privacy</a>
-            <a href="#" className="hover:text-white">Imprint</a>
+            <a href={DATA.cta.github} target="_blank" rel="noreferrer" className="hover:text-white">
+              GitHub
+            </a>
+            <a href={DATA.cta.linkedin} target="_blank" rel="noreferrer" className="hover:text-white">
+              LinkedIn
+            </a>
+            <a href={DATA.cta.email} className="hover:text-white">
+              Email
+            </a>
           </div>
         </div>
       </footer>
