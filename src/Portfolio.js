@@ -21,29 +21,31 @@ import {
 
 const DATA = {
   name: "Devansh Patel",
-  role: "Graduate Cybersecurity Consultant",
-  tagline: "Penetration testing, security operations, DFIR, GRC, and bug bounty research",
+  role: "GRC | DFIR | AppSec",
+  tagline:
+    "UCL MSc Information Security student, ISC2 CC, CNSP, C3SA, bug bounty hunter, and 2026 graduate-role candidate in London.",
   blurb:
-    "MSc Information Security candidate at UCL with hands-on experience across penetration testing, security operations, digital forensics, and risk management.",
+    "I find security gaps before attackers do, then help build the controls to stop those weaknesses from coming back. My work spans application security, DFIR, GRC, threat intelligence, web/API VAPT, evidence handling, risk reporting, remediation tracking, and security automation.",
   location: "London, United Kingdom",
   cta: {
     resumeUrl: "/Devansh_Patel_CV.pdf",
-    email: "mailto:devanshpatel.work@gmail.com",
+    email: "mailto:devanshpatelinfo@gmail.com",
     linkedin: "https://www.linkedin.com/in/devanshpatelcybersecurity",
     github: "https://github.com/Zuri09",
     medium: "https://medium.com/@devanshpatel930",
+    comolho: "https://cyber.comolho.com/researcher/profile/zuri99",
     x: "https://x.com/zuriinsecurity",
   },
   stats: [
-    { value: "20", label: "Confirmed disclosures" },
-    { value: "2C / 4H", label: "Critical and high findings" },
-    { value: "10k+", label: "Writeup readers" },
+    { value: "91", label: "Reported vulnerabilities" },
+    { value: "66.25%", label: "Com Olho acceptance ratio" },
+    { value: "#33", label: "Com Olho global rank" },
   ],
   highlights: [
     { icon: <Shield className="h-4 w-4" />, label: "Web / API VAPT" },
-    { icon: <Bug className="h-4 w-4" />, label: "20 confirmed vulns" },
-    { icon: <FileCode className="h-4 w-4" />, label: "Python / Go" },
-    { icon: <Cpu className="h-4 w-4" />, label: "SOC and DFIR" },
+    { icon: <Bug className="h-4 w-4" />, label: "91 reported vulns" },
+    { icon: <FileCode className="h-4 w-4" />, label: "Recon automation" },
+    { icon: <Cpu className="h-4 w-4" />, label: "Top 1% on Com Olho" },
   ],
   projects: [
     {
@@ -73,109 +75,150 @@ const DATA = {
   ],
   skills: {
     core: [
-      "Manual Web/API VAPT",
+      "Application Security",
+      "DFIR",
+      "GRC",
+      "Threat Intelligence",
+      "Web/API VAPT",
       "OWASP Top 10",
-      "CVSS v3.1",
-      "Threat modelling",
-      "Vulnerability triage",
-      "Incident response support",
+      "CWE mapping",
+      "CVSS scoring",
+      "Evidence handling",
       "Risk reporting",
-      "DFIR triage",
+      "Remediation tracking",
+      "Security automation",
     ],
     tools: [
-      "Burp Suite",
       "Nmap",
-      "Nessus",
-      "Wireshark",
-      "Shodan",
-      "Maltego",
+      "Burp Suite",
+      "OWASP",
+      "SQLMap",
       "Magnet AXIOM",
       "Autopsy",
       "FTK",
+      "Wireshark",
+      "Shodan",
+      "Maltego",
       "nuclei",
       "subfinder",
       "httpx",
       "waybackurls",
-      "ELK Stack",
-      "Splunk",
     ],
     code: [
-      "Python",
       "Bash",
       "Go",
+      "Python",
+      "Batch scripting",
       "SQL",
       "Git",
-      "AWS/Azure/GCP fundamentals",
-      "IAM/PAM",
-      "Zero Trust",
-      "DevSecOps concepts",
-      "MITRE ATT&CK",
+      "PHP",
+      "HTML/CSS",
       "ISO 27001",
       "NIST CSF",
       "GDPR",
     ],
+    languages: [
+      "English - Professional working",
+      "Hindi - Limited working",
+      "Gujarati - Elementary",
+    ],
   },
   experience: [
     {
-      org: "HackerOne, Bugcrowd, YesWeHack",
-      role: "Bug Bounty Researcher (Freelance)",
-      when: "Aug 2024 - Present",
+      org: "Students' Union UCL",
+      role: "Student Ambassador",
+      when: "Nov 2025 - Present",
       points: [
-        "Provided PoCs, CVSS v3.1 mapped severity ratings, and remediation guidance for 20 responsibly disclosed vulnerabilities: 2 Critical, 4 High, 6 Medium, and 8 Low.",
-        "Built ReconRaptor, a Bash and Go automation pipeline integrating subfinder, httpx, and waybackurls, reducing average reconnaissance time by approximately 30% across 23 assessments.",
-        "Earned Hall of Fame recognition across multiple programs and published 10+ technical write-ups on InfoSecWriteups and Medium covering XSS, CSRF, SSRF, and broader AppSec topics.",
+        "Represent UCL student communities through outreach, events, and student-facing support.",
+        "Support communication between students and university teams while building stakeholder engagement experience in London.",
       ],
     },
     {
-      org: "Aethris Technologies",
-      role: "Cyber Security Analyst (Contract)",
+      org: "UCL",
+      role: "Student Representative",
+      when: "Oct 2025 - Present",
+      points: [
+        "Represent student feedback and help connect academic teams with student priorities across the MSc Information Security cohort.",
+        "Contribute to programme-level communication, issue tracking, and student experience improvements.",
+      ],
+    },
+    {
+      org: "Freelance",
+      role: "Bug Bounty Hunter",
+      when: "Aug 2024 - Present",
+      points: [
+        "Reported 91 vulnerabilities on Com Olho, with 25,625 points, a 66.25% acceptance ratio, Top 1% recognition, Global Rank 33, and State Rank 10 in Maharashtra.",
+        "Reported XSS, CORS misconfiguration, token exposure, sensitive data exposure, security misconfiguration, broken authentication, SSRF, and hardcoded credential issues.",
+        "Authored structured remediation notes and redacted write-ups aligned to OWASP Top 10 and CWE.",
+        "Automated reconnaissance with Bash and Go scripts, including ReconRaptor, to streamline bug bounty and VAPT workflows.",
+      ],
+    },
+    {
+      org: "Aetheris",
+      role: "Cyber Security Analyst",
       when: "Jan 2025 - May 2025",
       points: [
-        "Authored a standardised risk and control report template and triage checklist, reducing median investigation closure from 3.4 to 2.3 days across 20 cases.",
-        "Produced prioritised risk and control reports for IT, compliance, and leadership stakeholders, tracking remediation progress and advising on control improvements.",
+        "Conducted vulnerability assessments of web applications using Burp Suite and OWASP methodology.",
+        "Assisted in real-world digital forensics investigations under expert guidance.",
+        "Gained exposure to Israeli-grade forensic tools and techno-legal processes.",
+        "Supported incident analysis, report drafting, and client-focused remediation plans.",
+        "Collaborated with senior analysts on cybersecurity compliance and awareness projects.",
       ],
     },
     {
       org: "eSecurify Technologies",
-      role: "Cyber Security Intern (Web/API VAPT)",
+      role: "Cyber Security Analyst",
       when: "Jun 2024 - Dec 2024",
       points: [
-        "Supported two rounds of remediation verification with the client engineering team across a 3-week web and REST API VAPT engagement.",
-        "Identified vulnerabilities mapped to OWASP Top 10 and CVSS v3.1 through manual and automated testing on a 2-person team under senior consultant supervision.",
-        "Co-authored prioritised technical reports with actionable mitigations and policy recommendations.",
+        "Built practical experience in web application security and vulnerability identification.",
+        "Led a team during live Vulnerability Assessment and Penetration Testing projects for a client.",
+        "Contributed to development of a proprietary company application.",
+        "Applied cybersecurity concepts to real-world scenarios, strengthening secure development and testing skills.",
       ],
     },
     {
-      org: "Cyber Crime Helpline LLP",
+      org: "CYBER CRIME HELPLINE LLP",
       role: "Digital Forensics Intern",
       when: "Jun 2023 - Aug 2023",
       points: [
-        "Processed 8 case files using Magnet AXIOM, Autopsy, and FTK.",
-        "Automated repetitive analysis tasks with BAT scripting, reducing manual effort by approximately 50% and improving consistency across cases.",
+        "Conducted mobile forensics investigations and extracted critical digital evidence from multiple device types.",
+        "Developed batch scripting tools for auditing, improving investigation efficiency by approximately 40%.",
+        "Worked with CISA auditing principles and open-source intelligence methodologies.",
+        "Built forensic support tools with batch scripting to help the team handle investigative tasks more efficiently.",
+      ],
+    },
+    {
+      org: "FlipLocation Pvt Ltd",
+      role: "Frontend Tester",
+      when: "May 2022 - Jul 2022",
+      points: [
+        "Tested frontend workflows and strengthened practical understanding of testing methodologies.",
+        "Gained early exposure to tools and concepts including SQLMap and Lambda during product testing work.",
       ],
     },
   ],
   education: [
     {
       where: "UCL",
-      degree: "MSc Information Security",
-      when: "Sep 2025 - Sep 2026",
-      detail:
-        "Dissertation: adapting Tor exit node detection techniques to commercial VPN providers using ASN/BGP clustering, JA3/JA4 TLS fingerprinting, and latency/jitter profiling.",
+      degree: "MSc, Information Security",
+      when: "2025 - 2026",
+      detail: "Postgraduate study focused on information security at University College London.",
     },
     {
-      where: "SSPU",
-      degree: "B.Tech CS & IT, Cyber Security",
-      when: "Sep 2021 - May 2025",
-      detail: "Cybersecurity graduate with applied work across AppSec, OSINT, and forensics.",
+      where: "Symbiosis Skills & Professional University",
+      degree: "Bachelor of Technology - BTech, Cyber Security",
+      when: "Sep 2021 - Jun 2025",
+      detail: "Undergraduate cybersecurity study with applied work across AppSec, OSINT, and forensics.",
     },
   ],
   certs: [
     "ISC2 Certified in Cybersecurity (CC)",
-    "SecOps Group CNSP",
-    "SecOps Group CAP",
-    "Cyber Warfare Labs C3SA",
-    "CompTIA Security+ in progress",
+    "CNSP",
+    "C3SA",
+    "Introduction to Dark Web, Anonymity, and Cryptocurrency",
+    "OSINTCon 2025",
+    "Bash for Beginners - Shell Scripting for Automation",
+    "Python for Beginners - Learn Python Programming in Hindi",
   ],
   hof: [
     { name: "BIA", logo: "/logos/BIA.png", url: "#" },
@@ -191,7 +234,7 @@ const DATA = {
     { name: "Ixigo", logo: "/logos/IXIGO.png", url: "#" },
     { name: "Elan", logo: "/logos/ELAN.png", url: "#" },
     { name: "CK Birla", logo: "/logos/CKBIRLA.png", url: "#" },
-    { name: "Com Olho", logo: "/logos/COMOLHO.png", url: "#" },
+    { name: "Com Olho", logo: "/logos/COMOLHO.png", url: "https://cyber.comolho.com/researcher/profile/zuri99" },
     { name: "PNB Housing", logo: "/logos/PNB_HOUSING.png", url: "#" },
     { name: "Allcargo", logo: "/logos/ALLCARGO.png", url: "#" },
     { name: "Max Healthcare", logo: "/logos/MAX_HEALTHCARE.png", url: "#" },
@@ -275,7 +318,7 @@ export default function Portfolio() {
               <div className="mb-6 flex flex-wrap gap-2">
                 <Pill tone="cyan">
                   <Shield className="h-3.5 w-3.5" />
-                  Available for security roles
+                  Open to UK cyber roles
                 </Pill>
                 <Pill tone="amber">
                   <Terminal className="h-3.5 w-3.5" />
@@ -362,7 +405,7 @@ export default function Portfolio() {
                       <Shield className="h-8 w-8 text-cyan-300" />
                     </div>
                     <div className="space-y-3">
-                      {["CVSS-mapped PoCs", "Risk and control reports", "Security writeups"].map((item) => (
+                      {["CVSS-mapped PoCs", "Risk and control reports", "Remediation tracking"].map((item) => (
                         <div key={item} className="flex items-center gap-3 text-sm text-slate-300">
                           <CheckCircle2 className="h-4 w-4 text-emerald-300" />
                           {item}
@@ -388,13 +431,13 @@ export default function Portfolio() {
           <div className="grid gap-8 lg:grid-cols-[0.72fr_1fr]">
             <SectionHeading eyebrow="Intro" title="Security work with clear evidence and useful remediation.">
               I translate technical findings into stakeholder-facing reports, PoCs, severity ratings,
-              and control improvements that help teams fix issues at pace.
+              remediation guidance, and control improvements that help teams fix issues at pace.
             </SectionHeading>
             <div className="rounded-lg border border-white/10 bg-white/[0.04] p-6 text-base leading-8 text-slate-300">
-              My experience spans public bug bounty programs, web and REST API VAPT, security
-              operations concepts, digital forensics, and risk management. I am familiar with ISO
-              27001, GDPR, NIST CSF, MITRE ATT&CK, and CVSS v3.1, and I am comfortable working
-              across both offensive and defensive security initiatives.
+              I am currently pursuing graduate and internship roles in UK cybersecurity, especially
+              GRC Analyst, Junior Penetration Tester, SOC Analyst, DFIR Analyst, and Cyber Security
+              Consultant positions. My experience spans public bug bounty programs, web and REST
+              API VAPT, digital forensics, risk reporting, and security automation.
             </div>
           </div>
         </section>
@@ -403,7 +446,8 @@ export default function Portfolio() {
           <div className="mx-auto max-w-7xl px-5 py-16 md:py-20">
             <SectionHeading eyebrow="Recognition" title="Found Vulnerabilities In">
               Public programs and organizations where my responsible disclosure and security
-              research work identified real security issues.
+              research work identified real security issues, including 91 vulnerabilities reported
+              on my Com Olho researcher profile.
             </SectionHeading>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-9">
               {DATA.hof.map((item) => (
@@ -424,13 +468,22 @@ export default function Portfolio() {
                 </a>
               ))}
             </div>
+            <a
+              href={DATA.cta.comolho}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex h-11 items-center gap-2 rounded-md border border-cyan-300/35 px-5 text-sm font-semibold text-cyan-100 transition hover:border-cyan-300 hover:bg-cyan-300/10"
+            >
+              <ExternalLink className="h-4 w-4" />
+              View Com Olho profile
+            </a>
           </div>
         </section>
 
         <section id="experience" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
-          <SectionHeading eyebrow="Experience" title="Security roles across bug bounty, VAPT, GRC, and forensics.">
-            Recent work combining CVSS-mapped vulnerability reporting, remediation support,
-            risk/control reporting, and evidence-led investigation.
+          <SectionHeading eyebrow="Experience" title="Experience across cybersecurity, campus leadership, and forensics.">
+            Recent work combining vulnerability reporting, remediation support, risk/control
+            reporting, student representation, and evidence-led investigation.
           </SectionHeading>
           <div className="space-y-4">
             {DATA.experience.map((item) => (
@@ -535,8 +588,8 @@ export default function Portfolio() {
 
         <section id="certifications" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
           <SectionHeading eyebrow="Certifications" title="Validated security fundamentals.">
-            Certifications that support my work across offensive security, SOC practice, and cloud
-            security basics.
+            Certifications and training from my LinkedIn profile that support my work across
+            offensive security, OSINT, scripting, and cyber fundamentals.
           </SectionHeading>
           <div className="flex flex-wrap gap-3">
             {DATA.certs.map((cert) => (
@@ -562,7 +615,7 @@ export default function Portfolio() {
               </h2>
               <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
                 Send me the context, scope, and what success looks like. I am happy to talk about
-                VAPT, DFIR, recon tooling, or security research.
+                GRC, VAPT, SOC, DFIR, recon tooling, or security research.
               </p>
             </div>
             <div className="flex flex-col justify-center gap-3 sm:flex-row md:flex-col">
