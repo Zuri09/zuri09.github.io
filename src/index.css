@@ -11,6 +11,40 @@ body {
   background: #071014;
 }
 
+a,
+button {
+  touch-action: manipulation;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #67e8f9;
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 50;
+  padding: 10px 14px;
+  color: #031014;
+  background: #67e8f9;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  transform: translateY(calc(-100% - 24px));
+  transition: transform 180ms ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
 .site-shell {
   position: relative;
   overflow-x: hidden;
@@ -28,7 +62,7 @@ body {
     linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.025) 48%, transparent 100%);
 }
 
-.site-shell > * {
+.site-shell > :not(.skip-link) {
   position: relative;
   z-index: 1;
 }
@@ -37,21 +71,8 @@ body {
   background-image:
     linear-gradient(rgba(125, 211, 252, 0.08) 1px, transparent 1px),
     linear-gradient(90deg, rgba(125, 211, 252, 0.08) 1px, transparent 1px);
-  background-size: 42px 42px;
+  background-size: 48px 48px;
   mask-image: linear-gradient(to bottom, black 0%, transparent 85%);
-  animation: grid-drift 18s linear infinite;
-}
-
-.scanline {
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(125, 211, 252, 0.06),
-    transparent
-  );
-  height: 38%;
-  transform: translateY(-110%);
-  animation: scanline-pass 7s ease-in-out infinite;
 }
 
 .cyber-sweep {
@@ -62,7 +83,6 @@ body {
     rgba(251, 191, 36, 0.65),
     transparent
   );
-  animation: sweep 4.8s ease-in-out infinite;
 }
 
 .brand-mark {
@@ -103,13 +123,46 @@ body {
 }
 
 .hero-title {
-  text-shadow: 0 0 34px rgba(125, 211, 252, 0.16);
+  text-shadow: 0 0 34px rgba(125, 211, 252, 0.14);
 }
 
 .hero-title::selection,
 ::selection {
   color: #031014;
   background: #67e8f9;
+}
+
+.proof-ribbon {
+  background:
+    linear-gradient(90deg, rgba(103, 232, 249, 0.12), rgba(251, 191, 36, 0.08)),
+    rgba(255, 255, 255, 0.035);
+  box-shadow: 0 0 38px rgba(103, 232, 249, 0.1);
+}
+
+.dossier-grid {
+  display: grid;
+  gap: 16px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
+    #071014;
+  box-shadow:
+    0 0 0 1px rgba(103, 232, 249, 0.18),
+    0 24px 70px rgba(0, 0, 0, 0.34);
+}
+
+.terminal-window {
+  grid-column: 1 / -1;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 18px 60px rgba(0, 0, 0, 0.25);
+}
+
+@media (min-width: 640px) {
+  .dossier-grid {
+    grid-template-columns: 0.82fr 1fr;
+  }
+
+  .terminal-window {
+    grid-column: 1 / -1;
+  }
 }
 
 .portrait-card,
@@ -156,7 +209,6 @@ body {
 }
 
 .portrait-card {
-  animation: float-card 7s ease-in-out infinite;
   transition: transform 260ms ease, border-color 260ms ease, box-shadow 260ms ease;
 }
 
@@ -203,7 +255,6 @@ body {
 
 .pulse-icon {
   filter: drop-shadow(0 0 14px rgba(125, 211, 252, 0.35));
-  animation: pulse-icon 2.8s ease-in-out infinite;
 }
 
 .icon-box {
@@ -256,7 +307,9 @@ body {
 }
 
 .magnetic-button:hover,
-.ghost-button:hover {
+.ghost-button:hover,
+.magnetic-button:focus-visible,
+.ghost-button:focus-visible {
   transform: translateY(-2px);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.22), 0 0 24px rgba(125, 211, 252, 0.14);
 }
@@ -273,48 +326,6 @@ body {
   transform: translateY(0);
 }
 
-@keyframes grid-drift {
-  from {
-    background-position: 0 0, 0 0;
-  }
-
-  to {
-    background-position: 84px 42px, 84px 42px;
-  }
-}
-
-@keyframes scanline-pass {
-  0%,
-  18% {
-    transform: translateY(-110%);
-    opacity: 0;
-  }
-
-  32%,
-  52% {
-    opacity: 0.9;
-  }
-
-  72%,
-  100% {
-    transform: translateY(280%);
-    opacity: 0;
-  }
-}
-
-@keyframes sweep {
-  0%,
-  100% {
-    transform: translateX(-65%);
-    opacity: 0;
-  }
-
-  50% {
-    transform: translateX(65%);
-    opacity: 1;
-  }
-}
-
 @keyframes hero-rise {
   from {
     opacity: 0;
@@ -324,30 +335,6 @@ body {
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes float-card {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes pulse-icon {
-  0%,
-  100% {
-    opacity: 0.82;
-    transform: scale(1);
-  }
-
-  50% {
-    opacity: 1;
-    transform: scale(1.06);
   }
 }
 

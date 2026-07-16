@@ -15,7 +15,6 @@ import {
   Linkedin,
   Mail,
   Shield,
-  Terminal,
   Twitter,
 } from "lucide-react";
 
@@ -300,6 +299,9 @@ export default function Portfolio() {
 
   return (
     <div className="site-shell min-h-screen bg-[#071014] text-slate-100 antialiased">
+      <a href="#main" className="skip-link">
+        Skip to content
+      </a>
       <header className="sticky top-0 z-40 border-b border-white/10 bg-[#071014]/82 shadow-lg shadow-black/20 backdrop-blur-xl">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
           <a href="#home" className="group flex items-center gap-3" aria-label="Go to home">
@@ -327,37 +329,45 @@ export default function Portfolio() {
         </div>
       </header>
 
-      <main>
+      <main id="main">
         <section id="home" className="relative overflow-hidden border-b border-white/10">
           <div className="pointer-events-none absolute inset-0 security-grid opacity-50" />
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px cyber-sweep" />
-          <div className="pointer-events-none absolute inset-0 scanline" />
-          <div className="relative mx-auto grid max-w-7xl gap-12 px-5 py-16 md:grid-cols-[1.05fr_0.95fr] md:py-24 lg:py-28">
+          <div className="relative mx-auto grid max-w-7xl items-start gap-10 px-5 py-14 md:grid-cols-[0.92fr_1.08fr] md:py-20 lg:py-24">
             <div className="reveal hero-copy flex flex-col justify-center">
-              <div className="mb-6 flex flex-wrap gap-2">
-                <Pill tone="cyan">
-                  <Shield className="h-3.5 w-3.5" />
-                  Open to UK cyber roles
-                </Pill>
-                <Pill tone="amber">
-                  <Terminal className="h-3.5 w-3.5" />
-                  {DATA.location}
-                </Pill>
+              <div className="proof-ribbon mb-7 inline-flex w-fit items-center gap-3 rounded-md border border-cyan-300/25 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100">
+                <span className="h-2 w-2 rounded-md bg-emerald-300" />
+                Top 1% Com Olho researcher
               </div>
               <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-300">
                 {DATA.role}
               </p>
               <h1 className="hero-title mt-4 max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-7xl">
-                {DATA.name}
+                Security researcher who turns findings into fixes.
               </h1>
-              <p className="mt-5 max-w-2xl text-xl leading-8 text-slate-300">{DATA.tagline}</p>
+              <p className="mt-5 max-w-2xl text-xl leading-8 text-slate-300">
+                {DATA.name} is a UCL MSc Information Security student focused on AppSec, GRC,
+                DFIR, and practical vulnerability research.
+              </p>
               <p className="mt-5 max-w-2xl text-base leading-7 text-slate-400">{DATA.blurb}</p>
+
+              <div className="mt-8 grid max-w-2xl grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3">
+                {DATA.stats.map((stat) => (
+                  <div key={stat.label} className="metric-card rounded-lg border border-white/10 bg-white/[0.04] p-4">
+                    <p className="whitespace-nowrap text-3xl font-semibold leading-none text-white">
+                      {stat.value}
+                    </p>
+                    <p className="mt-2 text-xs leading-5 text-slate-400">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
 
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
                   href={DATA.cta.resumeUrl}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Open Devansh Patel resume in a new tab"
                   className="magnetic-button inline-flex h-11 items-center gap-2 rounded-md bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
                 >
                   <Download className="h-4 w-4" />
@@ -367,6 +377,7 @@ export default function Portfolio() {
                   href={DATA.cta.github}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Open Devansh Patel GitHub profile in a new tab"
                   className="ghost-button inline-flex h-11 items-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
                 >
                   <Github className="h-4 w-4" />
@@ -376,6 +387,7 @@ export default function Portfolio() {
                   href={DATA.cta.linkedin}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Open Devansh Patel LinkedIn profile in a new tab"
                   className="ghost-button inline-flex h-11 items-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
                 >
                   <Linkedin className="h-4 w-4" />
@@ -385,6 +397,7 @@ export default function Portfolio() {
                   href={DATA.cta.medium}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label="Open Devansh Patel Medium profile in a new tab"
                   className="ghost-button inline-flex h-11 items-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
                 >
                   <FileText className="h-4 w-4" />
@@ -402,8 +415,8 @@ export default function Portfolio() {
               </div>
             </div>
 
-            <div className="reveal relative">
-              <div className="grid gap-4 sm:grid-cols-[0.82fr_1fr] md:grid-cols-1 lg:grid-cols-[0.82fr_1fr]">
+            <div className="reveal recruiter-dossier relative self-start">
+              <div className="dossier-grid rounded-lg border border-white/10 bg-white/[0.04] p-4 shadow-2xl shadow-black/25">
                 <div className="portrait-card overflow-hidden rounded-lg border border-white/10 bg-slate-900">
                   <img
                     src="/profile.png"
@@ -412,39 +425,36 @@ export default function Portfolio() {
                     loading="eager"
                   />
                 </div>
-                <div className="grid content-between gap-4">
-                  <div className="cyber-card rounded-lg border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-black/20">
-                    <div className="mb-5 flex items-center justify-between">
-                      <div>
-                        <p className="text-xs uppercase tracking-[0.22em] text-slate-400">
-                          Current focus
-                        </p>
-                        <p className="mt-2 text-lg font-semibold text-white">AppSec + GRC + DFIR</p>
-                      </div>
-                      <Shield className="pulse-icon h-8 w-8 text-cyan-300" />
+                <div className="cyber-card rounded-lg border border-white/10 bg-[#081319] p-5">
+                  <div className="mb-5 flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-xs uppercase tracking-[0.22em] text-slate-400">
+                        Recruiter signal
+                      </p>
+                      <p className="mt-2 text-2xl font-semibold text-white">Ready for UK cyber roles</p>
                     </div>
-                    <div className="space-y-3">
-                      {["CVSS-mapped PoCs", "Risk and control reports", "Remediation tracking"].map((item) => (
-                        <div key={item} className="flex items-center gap-3 text-sm text-slate-300">
-                          <CheckCircle2 className="h-4 w-4 text-emerald-300" />
-                          {item}
-                        </div>
-                      ))}
-                    </div>
+                    <Shield className="pulse-icon h-8 w-8 text-cyan-300" />
                   </div>
-                  <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-3">
-                    {DATA.stats.map((stat) => (
-                      <div
-                        key={stat.label}
-                        className="metric-card min-w-0 rounded-lg border border-white/10 bg-white/[0.04] p-3 sm:p-4"
-                      >
-                        <p className="whitespace-nowrap text-[clamp(1.65rem,3vw,2.35rem)] font-semibold leading-none tracking-normal text-white">
-                          {stat.value}
-                        </p>
-                        <p className="mt-1 text-xs leading-5 text-slate-400">{stat.label}</p>
+                  <div className="space-y-3">
+                    {["CVSS-scored reports", "Clear remediation guidance", "Web/API VAPT + DFIR + GRC"].map((item) => (
+                      <div key={item} className="flex items-center gap-3 text-sm text-slate-300">
+                        <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                        {item}
                       </div>
                     ))}
                   </div>
+                </div>
+                <div className="terminal-window rounded-lg border border-cyan-300/20 bg-[#030b10] p-5 font-mono text-xs leading-6 text-cyan-100">
+                  <div className="mb-4 flex gap-2">
+                    <span className="h-2.5 w-2.5 rounded-md bg-rose-300" />
+                    <span className="h-2.5 w-2.5 rounded-md bg-amber-300" />
+                    <span className="h-2.5 w-2.5 rounded-md bg-emerald-300" />
+                  </div>
+                  <p><span className="text-slate-500">$</span> validate_candidate --role cyber</p>
+                  <p className="text-emerald-300">status: verified profile signal</p>
+                  <p>focus: appsec | grc | dfir</p>
+                  <p>proof: 91 reported vulns | #33 global rank</p>
+                  <p className="text-amber-200">next: interview-ready</p>
                 </div>
               </div>
             </div>
