@@ -52,7 +52,7 @@ const DATA = {
       stack: ["Bash", "Go", "subfinder", "httpx", "waybackurls"],
       desc:
         "A Bash and Go recon automation pipeline that reduced average reconnaissance time by roughly 30% across 23 assessments.",
-      link: "https://github.com/Zuri09/ReconRaptor",
+      link: "https://zuri09.github.io/ReconRaptor/",
       type: "Security automation",
     },
     {
@@ -60,7 +60,7 @@ const DATA = {
       stack: ["Python", "Regex", "AST"],
       desc:
         "A Google dork generator for bug bounty and VAPT research, built to speed up discovery and targeting.",
-      link: "https://github.com/Zuri09/Dorkinator",
+      link: "https://zuri09.github.io/Dorkinator/",
       type: "Research tooling",
     },
     {
