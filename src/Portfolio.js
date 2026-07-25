@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import Lenis from "lenis";
 import {
-  ArrowRight,
+  ArrowUpRight,
   Award,
   Briefcase,
   Bug,
@@ -14,7 +15,11 @@ import {
   GraduationCap,
   Linkedin,
   Mail,
+  MapPin,
+  Radar,
   Shield,
+  Sparkles,
+  TerminalSquare,
   Twitter,
 } from "lucide-react";
 
@@ -36,15 +41,15 @@ const DATA = {
     x: "https://x.com/zuriinsecurity",
   },
   stats: [
-    { value: "91", label: "Reported vulns" },
-    { value: "66.25%", label: "Acceptance ratio" },
-    { value: "#33", label: "Global rank" },
+    { value: "91", label: "Reported vulnerabilities", detail: "Com Olho profile" },
+    { value: "66.25%", label: "Acceptance ratio", detail: "Signal quality" },
+    { value: "#33", label: "Global rank", detail: "Researcher standing" },
   ],
   highlights: [
-    { icon: <Shield className="h-4 w-4" />, label: "Web / API VAPT" },
-    { icon: <Bug className="h-4 w-4" />, label: "91 reported vulns" },
-    { icon: <FileCode className="h-4 w-4" />, label: "Recon automation" },
-    { icon: <Cpu className="h-4 w-4" />, label: "Top 1% on Com Olho" },
+    { icon: <Shield className="icon-sm" />, label: "Web / API VAPT" },
+    { icon: <Bug className="icon-sm" />, label: "91 reported vulns" },
+    { icon: <FileCode className="icon-sm" />, label: "Recon automation" },
+    { icon: <Cpu className="icon-sm" />, label: "Top 1% on Com Olho" },
   ],
   projects: [
     {
@@ -54,6 +59,7 @@ const DATA = {
         "A Bash and Go recon automation pipeline that reduced average reconnaissance time by roughly 30% across 23 assessments.",
       link: "https://zuri09.github.io/ReconRaptor/",
       type: "Security automation",
+      metric: "30% faster recon",
     },
     {
       title: "Dorkinator",
@@ -62,6 +68,7 @@ const DATA = {
         "A Google dork generator for bug bounty and VAPT research, built to speed up discovery and targeting.",
       link: "https://zuri09.github.io/Dorkinator/",
       type: "Research tooling",
+      metric: "Discovery workflow",
     },
     {
       title: "Missing Person Portal",
@@ -70,6 +77,7 @@ const DATA = {
         "A reporting portal that reduced reporting time and improved public engagement with real-time updates.",
       link: "https://github.com/Zuri09/MissingPersonPortal",
       type: "Public safety platform",
+      metric: "Public reporting",
     },
   ],
   skills: {
@@ -250,35 +258,36 @@ const navItems = [
   ["Contact", "#contact"],
 ];
 
-function SectionHeading({ eyebrow, title, children }) {
-  return (
-    <div className="reveal mb-8 max-w-3xl">
-      <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">
-        {eyebrow}
-      </p>
-      <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">{title}</h2>
-      {children ? <p className="mt-4 text-base leading-7 text-slate-300">{children}</p> : null}
-    </div>
-  );
+function useLenisScroll() {
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) return undefined;
+
+    const lenis = new Lenis({
+      duration: 1.08,
+      smoothWheel: true,
+      wheelMultiplier: 0.92,
+      touchMultiplier: 1.08,
+    });
+
+    let frameId;
+    function raf(time) {
+      lenis.raf(time);
+      frameId = requestAnimationFrame(raf);
+    }
+
+    frameId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      lenis.destroy();
+    };
+  }, []);
 }
 
-function Pill({ children, tone = "slate" }) {
-  const tones = {
-    slate: "border-slate-700 bg-slate-900 text-slate-200",
-    cyan: "border-cyan-400/30 bg-cyan-400/10 text-cyan-100",
-    amber: "border-amber-300/30 bg-amber-300/10 text-amber-100",
-  };
-
-  return (
-    <span className={`pill-shine inline-flex items-center gap-2 rounded-md border px-3 py-1 text-xs ${tones[tone]}`}>
-      {children}
-    </span>
-  );
-}
-
-export default function Portfolio() {
-  const [year, setYear] = useState(new Date().getFullYear());
-  useEffect(() => setYear(new Date().getFullYear()), []);
+function useRevealMotion() {
   useEffect(() => {
     const targets = document.querySelectorAll(".reveal");
     const observer = new IntersectionObserver(
@@ -290,124 +299,123 @@ export default function Portfolio() {
           }
         });
       },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.14 }
     );
 
     targets.forEach((target) => observer.observe(target));
     return () => observer.disconnect();
   }, []);
+}
+
+function SectionHeading({ eyebrow, title, children, align = "left" }) {
+  return (
+    <div className={`section-heading reveal ${align === "center" ? "section-heading-center" : ""}`}>
+      <p className="eyebrow">{eyebrow}</p>
+      <h2>{title}</h2>
+      {children ? <p className="section-lede">{children}</p> : null}
+    </div>
+  );
+}
+
+function Pill({ children, tone = "neutral" }) {
+  return <span className={`pill pill-${tone}`}>{children}</span>;
+}
+
+function ActionLink({ href, children, variant = "ghost", icon: Icon, label }) {
+  return (
+    <a
+      href={href}
+      target={href.startsWith("mailto:") ? undefined : "_blank"}
+      rel={href.startsWith("mailto:") ? undefined : "noreferrer"}
+      aria-label={label}
+      className={`action-link action-${variant}`}
+    >
+      {Icon ? <Icon className="icon-sm" /> : null}
+      <span>{children}</span>
+    </a>
+  );
+}
+
+export default function Portfolio() {
+  const [year, setYear] = useState(new Date().getFullYear());
+  useLenisScroll();
+  useRevealMotion();
+
+  useEffect(() => setYear(new Date().getFullYear()), []);
 
   return (
-    <div className="site-shell min-h-screen bg-[#071014] text-slate-100 antialiased">
+    <div className="site-shell">
       <a href="#main" className="skip-link">
         Skip to content
       </a>
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#071014]/82 shadow-lg shadow-black/20 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4">
-          <a href="#home" className="group flex items-center gap-3" aria-label="Go to home">
-            <span className="brand-mark grid h-9 w-9 place-items-center rounded-md border border-cyan-300/30 bg-cyan-300/10 text-sm font-bold text-cyan-100">
-              DP
-            </span>
-            <span className="hidden text-sm font-semibold tracking-tight text-white sm:block">
-              devansh.security
-            </span>
+
+      <header className="site-header">
+        <div className="nav-wrap">
+          <a href="#home" className="brand-lockup" aria-label="Go to home">
+            <span className="brand-mark">DP</span>
+            <span className="brand-text">devansh.security</span>
           </a>
-          <nav className="hidden items-center gap-6 text-sm text-slate-300 md:flex">
+
+          <nav className="nav-links" aria-label="Primary navigation">
             {navItems.map(([label, href]) => (
-              <a key={label} href={href} className="nav-link transition hover:text-white">
+              <a key={label} href={href}>
                 {label}
               </a>
             ))}
           </nav>
-          <a
-            href={DATA.cta.email}
-            className="magnetic-button inline-flex h-10 items-center gap-2 rounded-md bg-white px-4 text-sm font-semibold text-slate-950 transition hover:bg-cyan-100"
-          >
-            <Mail className="h-4 w-4" />
-            <span className="hidden sm:inline">Contact</span>
+
+          <a href={DATA.cta.email} className="nav-contact">
+            <Mail className="icon-sm" />
+            <span>Contact</span>
           </a>
         </div>
       </header>
 
       <main id="main">
-        <section id="home" className="relative overflow-hidden border-b border-white/10">
-          <div className="pointer-events-none absolute inset-0 security-grid opacity-50" />
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-px cyber-sweep" />
-          <div className="relative mx-auto grid max-w-7xl items-start gap-10 px-5 py-14 md:grid-cols-[0.92fr_1.08fr] md:py-20 lg:py-24">
-            <div className="reveal hero-copy flex flex-col justify-center">
-              <div className="proof-ribbon mb-7 inline-flex w-fit items-center gap-3 rounded-md border border-cyan-300/25 px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100">
-                <span className="h-2 w-2 rounded-md bg-emerald-300" />
-                Top 1% Com Olho researcher
+        <section id="home" className="hero-section">
+          <div className="hero-grid" aria-hidden="true" />
+          <div className="hero-noise" aria-hidden="true" />
+
+          <div className="container hero-layout">
+            <div className="hero-copy reveal">
+              <div className="status-row">
+                <span className="signal-dot" />
+                <span>Open to UK cyber roles</span>
+                <span className="status-separator" />
+                <MapPin className="icon-sm" />
+                <span>{DATA.location}</span>
               </div>
-              <p className="text-sm font-semibold uppercase tracking-[0.28em] text-cyan-300">
-                {DATA.role}
-              </p>
-              <h1 className="hero-title mt-4 max-w-4xl text-5xl font-semibold tracking-tight text-white md:text-7xl">
-                Security researcher who turns findings into fixes.
+
+              <p className="eyebrow hero-eyebrow">{DATA.role}</p>
+              <h1>
+                Security researcher turning vulnerabilities into board-ready fixes.
               </h1>
-              <p className="mt-5 max-w-2xl text-xl leading-8 text-slate-300">
-                {DATA.name} is a UCL MSc Information Security student focused on AppSec, GRC,
-                DFIR, and practical vulnerability research.
-              </p>
-              <p className="mt-5 max-w-2xl text-base leading-7 text-slate-400">{DATA.blurb}</p>
+              <p className="hero-lede">{DATA.tagline}</p>
+              <p className="hero-body">{DATA.blurb}</p>
 
-              <div className="mt-8 grid max-w-2xl grid-cols-[repeat(auto-fit,minmax(9.5rem,1fr))] gap-3">
-                {DATA.stats.map((stat) => (
-                  <div key={stat.label} className="metric-card rounded-lg border border-white/10 bg-white/[0.04] p-4">
-                    <p className="whitespace-nowrap text-3xl font-semibold leading-none text-white">
-                      {stat.value}
-                    </p>
-                    <p className="mt-2 text-xs leading-5 text-slate-400">{stat.label}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-8 flex flex-wrap gap-3">
-                <a
+              <div className="hero-actions" aria-label="Profile links">
+                <ActionLink
                   href={DATA.cta.resumeUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Open Devansh Patel resume in a new tab"
-                  className="magnetic-button inline-flex h-11 items-center gap-2 rounded-md bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
+                  variant="primary"
+                  icon={Download}
+                  label="Open Devansh Patel resume"
                 >
-                  <Download className="h-4 w-4" />
                   Resume
-                </a>
-                <a
-                  href={DATA.cta.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Open Devansh Patel GitHub profile in a new tab"
-                  className="ghost-button inline-flex h-11 items-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
-                >
-                  <Github className="h-4 w-4" />
+                </ActionLink>
+                <ActionLink href={DATA.cta.github} icon={Github} label="Open GitHub profile">
                   GitHub
-                </a>
-                <a
-                  href={DATA.cta.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Open Devansh Patel LinkedIn profile in a new tab"
-                  className="ghost-button inline-flex h-11 items-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
-                >
-                  <Linkedin className="h-4 w-4" />
+                </ActionLink>
+                <ActionLink href={DATA.cta.linkedin} icon={Linkedin} label="Open LinkedIn profile">
                   LinkedIn
-                </a>
-                <a
-                  href={DATA.cta.medium}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Open Devansh Patel Medium profile in a new tab"
-                  className="ghost-button inline-flex h-11 items-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
-                >
-                  <FileText className="h-4 w-4" />
+                </ActionLink>
+                <ActionLink href={DATA.cta.medium} icon={FileText} label="Open Medium profile">
                   Medium
-                </a>
+                </ActionLink>
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-2">
+              <div className="highlight-row" aria-label="Core highlights">
                 {DATA.highlights.map((item) => (
-                  <Pill key={item.label}>
+                  <Pill key={item.label} tone="blue">
                     {item.icon}
                     {item.label}
                   </Pill>
@@ -415,169 +423,169 @@ export default function Portfolio() {
               </div>
             </div>
 
-            <div className="reveal recruiter-dossier relative self-start">
-              <div className="dossier-grid rounded-lg border border-white/10 bg-white/[0.04] p-4 shadow-2xl shadow-black/25">
-                <div className="portrait-card overflow-hidden rounded-lg border border-white/10 bg-slate-900">
-                  <img
-                    src="/profile.png"
-                    alt="Devansh Patel"
-                    className="aspect-[4/5] h-full w-full object-cover"
-                    loading="eager"
-                  />
+            <aside className="hero-visual reveal" aria-label="Recruiter proof summary">
+              <div className="portrait-shell">
+                <img
+                  src="/profile.png"
+                  alt="Devansh Patel"
+                  width="640"
+                  height="800"
+                  className="portrait-image"
+                />
+                <div className="portrait-badge">
+                  <Radar className="icon-md" />
+                  <span>validated researcher profile</span>
                 </div>
-                <div className="cyber-card rounded-lg border border-white/10 bg-[#081319] p-5">
-                  <div className="mb-5 flex items-start justify-between gap-4">
-                    <div>
-                      <p className="text-xs uppercase tracking-[0.22em] text-slate-400">
-                        Recruiter signal
-                      </p>
-                      <p className="mt-2 text-2xl font-semibold text-white">Ready for UK cyber roles</p>
-                    </div>
-                    <Shield className="pulse-icon h-8 w-8 text-cyan-300" />
-                  </div>
-                  <div className="space-y-3">
-                    {["CVSS-scored reports", "Clear remediation guidance", "Web/API VAPT + DFIR + GRC"].map((item) => (
-                      <div key={item} className="flex items-center gap-3 text-sm text-slate-300">
-                        <CheckCircle2 className="h-4 w-4 text-emerald-300" />
-                        {item}
-                      </div>
-                    ))}
-                  </div>
+              </div>
+
+              <div className="proof-panel">
+                <div>
+                  <p className="panel-kicker">current focus</p>
+                  <h2>AppSec + GRC + DFIR</h2>
                 </div>
-                <div className="terminal-window rounded-lg border border-cyan-300/20 bg-[#030b10] p-5 font-mono text-xs leading-6 text-cyan-100">
-                  <div className="mb-4 flex gap-2">
-                    <span className="h-2.5 w-2.5 rounded-md bg-rose-300" />
-                    <span className="h-2.5 w-2.5 rounded-md bg-amber-300" />
-                    <span className="h-2.5 w-2.5 rounded-md bg-emerald-300" />
+                <Shield className="panel-icon" />
+                <ul>
+                  {["CVSS-mapped PoCs", "Risk and control reports", "Remediation tracking"].map((item) => (
+                    <li key={item}>
+                      <CheckCircle2 className="icon-sm" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div className="pipeline-panel">
+                <p className="panel-kicker">report pipeline</p>
+                {["recon", "proof", "risk", "fix"].map((item, index) => (
+                  <div key={item} className="pipeline-step">
+                    <span>{String(index + 1).padStart(2, "0")}</span>
+                    <strong>{item}</strong>
                   </div>
-                  <p><span className="text-slate-500">$</span> validate_candidate --role cyber</p>
-                  <p className="text-emerald-300">status: verified profile signal</p>
-                  <p>focus: appsec | grc | dfir</p>
-                  <p>proof: 91 reported vulns | #33 global rank</p>
-                  <p className="text-amber-200">next: interview-ready</p>
-                </div>
+                ))}
+              </div>
+            </aside>
+          </div>
+
+          <div className="container stat-band reveal" aria-label="Com Olho metrics">
+            {DATA.stats.map((stat) => (
+              <a
+                key={stat.label}
+                href={DATA.cta.comolho}
+                target="_blank"
+                rel="noreferrer"
+                className="stat-card"
+              >
+                <span className="stat-value">{stat.value}</span>
+                <span className="stat-label">{stat.label}</span>
+                <span className="stat-detail">{stat.detail}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        <section id="found-vulnerabilities" className="section section-alt">
+          <div className="container">
+            <div className="split-heading">
+              <SectionHeading eyebrow="Recognition" title="Found Vulnerabilities In">
+                Public programs and organizations where responsible disclosure work identified real
+                security issues.
+              </SectionHeading>
+              <a href={DATA.cta.comolho} target="_blank" rel="noreferrer" className="proof-link reveal">
+                <ExternalLink className="icon-sm" />
+                Com Olho profile
+              </a>
+            </div>
+
+            <div className="logo-marquee reveal" aria-label="Hall of fame logos">
+              <div className="logo-grid">
+                {DATA.hof.map((item, index) => (
+                  <a
+                    key={item.name}
+                    href={item.url || "#"}
+                    target={item.url && item.url !== "#" ? "_blank" : undefined}
+                    rel={item.url && item.url !== "#" ? "noreferrer" : undefined}
+                    className="logo-tile"
+                    style={{ "--delay": `${Math.min(index * 24, 240)}ms` }}
+                    aria-label={item.name}
+                  >
+                    <img src={item.logo} alt={item.name} loading="lazy" width="160" height="80" />
+                    <span>{item.name}</span>
+                  </a>
+                ))}
               </div>
             </div>
           </div>
         </section>
 
-        <section id="about" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
-          <div className="grid gap-8 lg:grid-cols-[0.72fr_1fr]">
-            <SectionHeading eyebrow="Intro" title="Security work with clear evidence and useful remediation.">
-              I translate technical findings into stakeholder-facing reports, PoCs, severity ratings,
-              remediation guidance, and control improvements that help teams fix issues at pace.
+        <section id="experience" className="section">
+          <div className="container">
+            <SectionHeading eyebrow="Experience" title="Evidence-led work across security and leadership.">
+              A focused record across vulnerability reporting, remediation support, risk/control
+              reporting, student representation, and digital forensics.
             </SectionHeading>
-            <div className="reveal cyber-card rounded-lg border border-white/10 bg-white/[0.04] p-6 text-base leading-8 text-slate-300">
-              I am currently pursuing graduate and internship roles in UK cybersecurity, especially
-              GRC Analyst, Junior Penetration Tester, SOC Analyst, DFIR Analyst, and Cyber Security
-              Consultant positions. My experience spans public bug bounty programs, web and REST
-              API VAPT, digital forensics, risk reporting, and security automation.
-            </div>
-          </div>
-        </section>
 
-        <section id="found-vulnerabilities" className="border-y border-white/10 bg-white/[0.025]">
-          <div className="mx-auto max-w-7xl px-5 py-16 md:py-20">
-            <SectionHeading eyebrow="Recognition" title="Found Vulnerabilities In">
-              Public programs and organizations where my responsible disclosure and security
-              research work identified real security issues, including 91 vulnerabilities reported
-              on my Com Olho researcher profile.
-            </SectionHeading>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6 xl:grid-cols-9">
-              {DATA.hof.map((item, index) => (
-                <a
-                  key={item.name}
-                  href={item.url || "#"}
-                  target={item.url && item.url !== "#" ? "_blank" : undefined}
-                  rel={item.url && item.url !== "#" ? "noreferrer" : undefined}
-                  className="reveal logo-tile group flex h-24 items-center justify-center rounded-lg border border-white/10 bg-white p-3 transition hover:-translate-y-1 hover:border-cyan-300/60"
-                  style={{ transitionDelay: `${Math.min(index * 24, 220)}ms` }}
-                  aria-label={item.name}
+            <div className="experience-list">
+              {DATA.experience.map((item, index) => (
+                <article
+                  key={`${item.org}-${item.when}`}
+                  className="timeline-card reveal"
+                  style={{ "--delay": `${Math.min(index * 44, 260)}ms` }}
                 >
-                  <img
-                    src={item.logo}
-                    alt={item.name}
-                    className="max-h-12 max-w-full object-contain transition group-hover:scale-105"
-                    loading="lazy"
-                  />
-                </a>
+                  <div className="timeline-meta">
+                    <div className="card-icon">
+                      <Briefcase className="icon-md" />
+                    </div>
+                    <span>{item.when}</span>
+                  </div>
+                  <div className="timeline-content">
+                    <p>{item.role}</p>
+                    <h3>{item.org}</h3>
+                    <ul>
+                      {item.points.map((point) => (
+                        <li key={point}>
+                          <CheckCircle2 className="icon-sm" />
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
               ))}
             </div>
-            <a
-              href={DATA.cta.comolho}
-              target="_blank"
-              rel="noreferrer"
-              className="ghost-button reveal mt-6 inline-flex h-11 items-center gap-2 rounded-md border border-cyan-300/35 px-5 text-sm font-semibold text-cyan-100 transition hover:border-cyan-300 hover:bg-cyan-300/10"
-            >
-              <ExternalLink className="h-4 w-4" />
-              View Com Olho profile
-            </a>
           </div>
         </section>
 
-        <section id="experience" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
-          <SectionHeading eyebrow="Experience" title="Experience across cybersecurity, campus leadership, and forensics.">
-            Recent work combining vulnerability reporting, remediation support, risk/control
-            reporting, student representation, and evidence-led investigation.
-          </SectionHeading>
-          <div className="space-y-4">
-            {DATA.experience.map((item, index) => (
-              <article
-                key={`${item.org}-${item.when}`}
-                className="reveal timeline-card grid gap-5 rounded-lg border border-white/10 bg-[#0b171d] p-6 md:grid-cols-[0.34fr_1fr]"
-                style={{ transitionDelay: `${Math.min(index * 45, 240)}ms` }}
-              >
-                <div>
-                  <div className="icon-box mb-4 flex h-11 w-11 items-center justify-center rounded-md bg-amber-300/10 text-amber-200">
-                    <Briefcase className="h-5 w-5" />
-                  </div>
-                  <p className="text-sm text-slate-400">{item.when}</p>
-                  <h3 className="mt-2 text-lg font-semibold text-white">{item.org}</h3>
-                  <p className="mt-1 text-sm text-cyan-200">{item.role}</p>
-                </div>
-                <ul className="space-y-3 text-sm leading-6 text-slate-300">
-                  {item.points.map((point) => (
-                    <li key={point} className="flex gap-3">
-                      <CheckCircle2 className="mt-1 h-4 w-4 flex-none text-emerald-300" />
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="projects" className="border-y border-white/10 bg-white/[0.025]">
-          <div className="mx-auto max-w-7xl px-5 py-16 md:py-20">
-            <SectionHeading eyebrow="Selected Work" title="Tools and projects built around real workflows.">
-              A few examples of how I package investigation, recon, and reporting into useful
-              software.
+        <section id="projects" className="section section-alt">
+          <div className="container">
+            <SectionHeading eyebrow="Selected Work" title="Security tools that point to live work.">
+              Recruiters should not have to imagine the output. These project cards now open the
+              live project sites where available.
             </SectionHeading>
-            <div className="grid gap-5 md:grid-cols-3">
+
+            <div className="project-grid">
               {DATA.projects.map((project, index) => (
                 <a
                   key={project.title}
                   href={project.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="reveal project-card group flex min-h-[280px] flex-col rounded-lg border border-white/10 bg-[#0b171d] p-6 transition hover:-translate-y-1 hover:border-cyan-300/40 hover:bg-[#0d1c23]"
-                  style={{ transitionDelay: `${index * 70}ms` }}
+                  className="project-card reveal"
+                  style={{ "--delay": `${index * 70}ms` }}
                 >
-                  <div className="mb-5 flex items-center justify-between gap-4">
-                    <Pill tone="cyan">{project.type}</Pill>
-                    <ExternalLink className="h-4 w-4 text-slate-500 transition group-hover:text-cyan-300" />
+                  <div className="project-topline">
+                    <Pill tone="amber">{project.type}</Pill>
+                    <ArrowUpRight className="icon-md" />
                   </div>
-                  <h3 className="text-xl font-semibold text-white">{project.title}</h3>
-                  <p className="mt-3 flex-1 text-sm leading-6 text-slate-400">{project.desc}</p>
-                  <div className="mt-6 flex flex-wrap gap-2">
+                  <h3>{project.title}</h3>
+                  <p>{project.desc}</p>
+                  <div className="project-metric">
+                    <Sparkles className="icon-sm" />
+                    <span>{project.metric}</span>
+                  </div>
+                  <div className="stack-row">
                     {project.stack.map((item) => (
                       <Pill key={item}>{item}</Pill>
                     ))}
-                  </div>
-                  <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-cyan-200">
-                    View project
-                    <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
                   </div>
                 </a>
               ))}
@@ -585,140 +593,110 @@ export default function Portfolio() {
           </div>
         </section>
 
-        <section id="skills" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
-          <SectionHeading eyebrow="Capabilities" title="A practical security toolkit.">
-            Tools, languages, frameworks, and methods I use across offensive testing, security
-            operations, investigations, and reporting.
-          </SectionHeading>
-          <div className="grid gap-5 md:grid-cols-3">
-            {Object.entries(DATA.skills).map(([category, items], index) => (
-              <div
-                key={category}
-                className="reveal cyber-card rounded-lg border border-white/10 bg-white/[0.04] p-6"
-                style={{ transitionDelay: `${index * 55}ms` }}
-              >
-                <h3 className="text-lg font-semibold capitalize text-white">{category}</h3>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {items.map((item) => (
-                    <Pill key={item}>{item}</Pill>
-                  ))}
-                </div>
-              </div>
-            ))}
+        <section id="skills" className="section">
+          <div className="container">
+            <SectionHeading eyebrow="Capabilities" title="A practical security toolkit.">
+              Methods and tools used across offensive testing, investigations, security operations,
+              governance, and automation.
+            </SectionHeading>
+
+            <div className="skills-grid">
+              {Object.entries(DATA.skills).map(([category, items], index) => (
+                <article
+                  key={category}
+                  className="skill-card reveal"
+                  style={{ "--delay": `${index * 54}ms` }}
+                >
+                  <div className="skill-heading">
+                    <TerminalSquare className="icon-md" />
+                    <h3>{category}</h3>
+                  </div>
+                  <div className="skill-cloud">
+                    {items.map((item) => (
+                      <Pill key={item}>{item}</Pill>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section id="education" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
-          <SectionHeading eyebrow="Education" title="Academic grounding in cybersecurity.">
-            Formal study paired with hands-on security projects and professional practice.
-          </SectionHeading>
-          <div className="grid gap-5 md:grid-cols-2">
-            {DATA.education.map((item, index) => (
-              <article
-                key={item.where}
-                className="reveal cyber-card rounded-lg border border-white/10 bg-white/[0.04] p-6"
-                style={{ transitionDelay: `${index * 70}ms` }}
-              >
-                <div className="icon-box mb-5 flex h-11 w-11 items-center justify-center rounded-md bg-cyan-300/10 text-cyan-200">
-                  <GraduationCap className="h-5 w-5" />
-                </div>
-                <p className="text-sm text-slate-400">{item.when}</p>
-                <h3 className="mt-2 text-xl font-semibold text-white">{item.where}</h3>
-                <p className="mt-1 text-sm font-medium text-cyan-200">{item.degree}</p>
-                <p className="mt-4 text-sm leading-6 text-slate-300">{item.detail}</p>
-              </article>
-            ))}
+        <section id="education" className="section section-compact">
+          <div className="container">
+            <SectionHeading eyebrow="Education" title="Academic grounding in cybersecurity.">
+              Formal study paired with hands-on security projects and professional practice.
+            </SectionHeading>
+
+            <div className="education-grid">
+              {DATA.education.map((item, index) => (
+                <article
+                  key={item.where}
+                  className="education-card reveal"
+                  style={{ "--delay": `${index * 70}ms` }}
+                >
+                  <div className="card-icon">
+                    <GraduationCap className="icon-md" />
+                  </div>
+                  <span>{item.when}</span>
+                  <h3>{item.where}</h3>
+                  <p className="degree">{item.degree}</p>
+                  <p>{item.detail}</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section id="certifications" className="mx-auto max-w-7xl px-5 py-16 md:py-20">
-          <SectionHeading eyebrow="Certifications" title="Validated security fundamentals.">
-            Certifications and training from my LinkedIn profile that support my work across
-            offensive security, OSINT, scripting, and cyber fundamentals.
-          </SectionHeading>
-          <div className="flex flex-wrap gap-3">
-            {DATA.certs.map((cert, index) => (
-              <span
-                key={cert}
-                className="reveal pill-shine inline-flex items-center gap-2 rounded-md border border-amber-300/25 bg-amber-300/10 px-4 py-2 text-sm text-amber-50"
-                style={{ transitionDelay: `${Math.min(index * 35, 180)}ms` }}
-              >
-                <Award className="h-4 w-4 text-amber-200" />
-                {cert}
-              </span>
-            ))}
+        <section id="certifications" className="section section-compact">
+          <div className="container">
+            <SectionHeading eyebrow="Certifications" title="Validated security fundamentals." />
+            <div className="cert-grid">
+              {DATA.certs.map((cert, index) => (
+                <span key={cert} className="cert-pill reveal" style={{ "--delay": `${Math.min(index * 35, 180)}ms` }}>
+                  <Award className="icon-sm" />
+                  {cert}
+                </span>
+              ))}
+            </div>
           </div>
         </section>
 
-        <section id="contact" className="border-t border-white/10 bg-[#0b171d]">
-          <div className="mx-auto grid max-w-7xl gap-8 px-5 py-16 md:grid-cols-[1fr_0.8fr] md:py-20">
+        <section id="contact" className="contact-section">
+          <div className="container contact-layout">
             <div className="reveal">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-[0.24em] text-cyan-300">
-                Contact
-              </p>
-              <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
-                Have a security project or role I should look at?
-              </h2>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-slate-300">
+              <p className="eyebrow">Contact</p>
+              <h2>Have a security project or role I should look at?</h2>
+              <p>
                 Send me the context, scope, and what success looks like. I am happy to talk about
                 GRC, VAPT, SOC, DFIR, recon tooling, or security research.
               </p>
             </div>
-            <div className="reveal flex flex-col justify-center gap-3 sm:flex-row md:flex-col">
-              <a
-                href={DATA.cta.email}
-                className="magnetic-button inline-flex h-12 items-center justify-center gap-2 rounded-md bg-cyan-300 px-5 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200"
-              >
-                <Mail className="h-4 w-4" />
-                Email me
-              </a>
-              <a
-                href={DATA.cta.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className="ghost-button inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
-              >
-                <Linkedin className="h-4 w-4" />
+            <div className="contact-actions reveal">
+              <ActionLink href={DATA.cta.email} variant="primary" icon={Mail} label="Email Devansh Patel">
+                Email
+              </ActionLink>
+              <ActionLink href={DATA.cta.linkedin} icon={Linkedin} label="Open LinkedIn">
                 LinkedIn
-              </a>
-              <a
-                href={DATA.cta.medium}
-                target="_blank"
-                rel="noreferrer"
-                className="ghost-button inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
-              >
-                <FileText className="h-4 w-4" />
+              </ActionLink>
+              <ActionLink href={DATA.cta.medium} icon={FileText} label="Open Medium">
                 Medium
-              </a>
-              <a
-                href={DATA.cta.x}
-                target="_blank"
-                rel="noreferrer"
-                className="ghost-button inline-flex h-12 items-center justify-center gap-2 rounded-md border border-white/15 px-5 text-sm font-semibold text-white transition hover:border-cyan-300/50 hover:bg-white/5"
-              >
-                <Twitter className="h-4 w-4" />
+              </ActionLink>
+              <ActionLink href={DATA.cta.x} icon={Twitter} label="Open X profile">
                 X
-              </a>
+              </ActionLink>
             </div>
           </div>
         </section>
       </main>
 
-      <footer className="border-t border-white/10 bg-[#071014]">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm text-slate-400 md:flex-row md:items-center md:justify-between">
-          <p>
-            (c) {year} {DATA.name}. Stay curious, stay dangerous.
-          </p>
-          <div className="flex items-center gap-4">
-            <a href={DATA.cta.github} target="_blank" rel="noreferrer" className="hover:text-white">
-              GitHub
-            </a>
-            <a href={DATA.cta.linkedin} target="_blank" rel="noreferrer" className="hover:text-white">
-              LinkedIn
-            </a>
-            <a href={DATA.cta.email} className="hover:text-white">
-              Email
-            </a>
+      <footer className="site-footer">
+        <div className="container footer-layout">
+          <p>(c) {year} {DATA.name}. Stay curious, stay dangerous.</p>
+          <div>
+            <a href={DATA.cta.github} target="_blank" rel="noreferrer">GitHub</a>
+            <a href={DATA.cta.linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+            <a href={DATA.cta.email}>Email</a>
           </div>
         </div>
       </footer>
