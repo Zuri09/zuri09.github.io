@@ -388,7 +388,7 @@ export default function Portfolio() {
 
               <p className="eyebrow hero-eyebrow">{DATA.role}</p>
               <h1>
-                Security researcher turning vulns into fixes.
+                Security researcher. Fixes built.
               </h1>
               <p className="hero-lede">{DATA.tagline}</p>
               <p className="hero-body">{DATA.blurb}</p>
