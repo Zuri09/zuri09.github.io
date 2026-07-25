@@ -266,7 +266,7 @@ button:focus-visible {
 .hero-section {
   position: relative;
   isolation: isolate;
-  padding-block: clamp(3.5rem, 6vw, 6.5rem) 3rem;
+  padding-block: clamp(3rem, 5vw, 5.25rem) 3rem;
   border-bottom: 1px solid var(--color-line);
 }
 
@@ -351,13 +351,13 @@ button:focus-visible {
 
 .hero-copy h1,
 .contact-section h2 {
-  max-width: 11ch;
+  max-width: 13.5ch;
   margin: 0;
   color: var(--color-text);
-  font-size: clamp(3rem, 9vw, 7.8rem);
-  font-weight: 850;
+  font-size: clamp(3rem, 6.4vw, 5.95rem);
+  font-weight: 820;
   letter-spacing: 0;
-  line-height: 0.86;
+  line-height: 0.92;
   overflow-wrap: anywhere;
 }
 
@@ -458,6 +458,7 @@ button:focus-visible {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 1rem;
+  align-self: start;
 }
 
 .portrait-shell,
@@ -504,14 +505,16 @@ button:focus-visible {
 }
 
 .portrait-shell {
-  min-height: 27rem;
+  min-height: 24rem;
+  aspect-ratio: 4 / 5;
 }
 
 .portrait-image {
   width: 100%;
   height: 100%;
-  min-height: 27rem;
+  min-height: 24rem;
   object-fit: cover;
+  object-position: 46% 50%;
   filter: saturate(1.05) contrast(1.05);
   transform: scale(1.01);
   transition: transform 700ms ease, filter 700ms ease;
@@ -536,7 +539,7 @@ button:focus-visible {
   color: var(--color-text);
   background: rgba(5, 9, 13, 0.76);
   backdrop-filter: blur(18px);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.08em;
@@ -597,9 +600,10 @@ button:focus-visible {
 
 .proof-panel h2 {
   margin: 0;
-  font-size: clamp(1.65rem, 4vw, 2.65rem);
+  max-width: 10ch;
+  font-size: clamp(1.65rem, 2.8vw, 2.25rem);
   letter-spacing: 0;
-  line-height: 1;
+  line-height: 1.06;
 }
 
 .panel-icon {
@@ -1082,16 +1086,23 @@ button:focus-visible {
   }
 
   .hero-layout {
-    grid-template-columns: minmax(0, 1.05fr) minmax(18rem, 0.75fr);
+    grid-template-columns: minmax(0, 0.92fr) minmax(26rem, 0.88fr);
+    align-items: start;
   }
 
   .hero-visual {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    grid-template-columns: minmax(16rem, 0.92fr) minmax(0, 1fr);
     align-items: stretch;
+    padding-top: 1.75rem;
   }
 
   .portrait-shell {
     grid-row: span 2;
+    min-height: 30rem;
+  }
+
+  .portrait-image {
+    min-height: 30rem;
   }
 
   .proof-panel {
@@ -1140,7 +1151,12 @@ button:focus-visible {
 
 @media (min-width: 92rem) {
   .hero-layout {
-    grid-template-columns: minmax(0, 0.95fr) minmax(34rem, 1fr);
+    grid-template-columns: minmax(0, 0.9fr) minmax(39rem, 0.92fr);
+  }
+
+  .hero-copy h1 {
+    max-width: 12.5ch;
+    font-size: clamp(4rem, 5.35vw, 6.25rem);
   }
 
   .logo-grid {
