@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Devansh Patel security monogram</title>
+  <desc id="desc">A crisp DP monogram inside a cyan bordered cyber badge on a dark grid background.</desc>
+  <defs>
+    <radialGradient id="bg" cx="30%" cy="18%" r="84%">
+      <stop offset="0%" stop-color="#173F49"/>
+      <stop offset="48%" stop-color="#07151B"/>
+      <stop offset="100%" stop-color="#03070B"/>
+    </radialGradient>
+    <linearGradient id="border" x1="84" x2="428" y1="72" y2="440" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#72F1FF"/>
+      <stop offset="58%" stop-color="#3DBFD1"/>
+      <stop offset="100%" stop-color="#F7C86F"/>
+    </linearGradient>
+    <linearGradient id="letters" x1="152" x2="360" y1="170" y2="340" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#EAFDFF"/>
+      <stop offset="100%" stop-color="#72F1FF"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#000000" flood-opacity="0.5"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="14" flood-color="#72F1FF" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+
+  <rect width="512" height="512" rx="108" fill="url(#bg)"/>
+  <path d="M64 128h384M64 224h384M64 320h384M64 416h384M128 64v384M224 64v384M320 64v384M416 64v384" stroke="#72F1FF" stroke-opacity="0.07" stroke-width="4"/>
+  <rect x="78" y="78" width="356" height="356" rx="86" fill="#071218" stroke="url(#border)" stroke-width="14" filter="url(#shadow)"/>
+  <rect x="104" y="104" width="304" height="304" rx="66" fill="none" stroke="#72F1FF" stroke-opacity="0.18" stroke-width="3"/>
+  <path d="M256 126c34 24 66 29 88 30v74c0 55-31 91-88 116-57-25-88-61-88-116v-74c22-1 54-6 88-30Z" fill="#0A222B" stroke="#72F1FF" stroke-opacity="0.24" stroke-width="5"/>
+  <path d="M134 178h82c60 0 102 34 102 78s-42 78-102 78h-82V178Zm48 44v68h33c32 0 53-13 53-34s-21-34-53-34h-33Z" fill="#72F1FF" fill-rule="evenodd"/>
+  <path d="M286 178h86c46 0 78 28 78 68s-32 68-78 68h-38v20h-48V178Zm48 44v48h35c21 0 33-9 33-24s-12-24-33-24h-35Z" fill="#F8FDFF" fill-opacity="0.96" fill-rule="evenodd"/>
+  <circle cx="132" cy="132" r="9" fill="#72F1FF"/>
+  <circle cx="379" cy="379" r="8" fill="#F7C86F"/>
+</svg>
