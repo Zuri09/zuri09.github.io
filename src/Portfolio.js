@@ -240,6 +240,7 @@ const DATA = {
     { name: "Tata Motors", logo: "/logos/TATAMOTORS.png", url: "#" },
     { name: "Ixigo", logo: "/logos/IXIGO.png", url: "#" },
     { name: "Elan", logo: "/logos/ELAN.png", url: "#" },
+    { name: "Eurostar", logo: "/logos/Eurostar-Logo.png", url: "#" },
     { name: "CK Birla", logo: "/logos/CKBIRLA.png", url: "#" },
     { name: "Com Olho", logo: "/logos/COMOLHO.png", url: "https://cyber.comolho.com/researcher/profile/zuri99" },
     { name: "PNB Housing", logo: "/logos/PNB_HOUSING.png", url: "#" },
