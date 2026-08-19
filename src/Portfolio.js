@@ -25,9 +25,9 @@ import {
 
 const DATA = {
   name: "Devansh Patel",
-  role: "GRC | DFIR | AppSec",
+  role: "Security Engineering Intern | AppSec | GRC",
   tagline:
-    "UCL MSc Information Security student, ISC2 CC, CNSP, C3SA, bug bounty hunter, and 2026 graduate-role candidate in London.",
+    "Security Engineering Intern at Freetrade, UCL MSc Information Security student, ISC2 CC, CNSP, C3SA, and bug bounty hunter in London.",
   blurb:
     "I find security gaps before attackers do, then help build the controls to stop those weaknesses from coming back. My work spans application security, DFIR, GRC, threat intelligence, web/API VAPT, evidence handling, risk reporting, remediation tracking, and security automation.",
   location: "London, United Kingdom",
@@ -131,6 +131,15 @@ const DATA = {
     ],
   },
   experience: [
+    {
+      org: "Freetrade",
+      role: "Security Engineering Intern",
+      when: "Aug 2026 - Present",
+      points: [
+        "Supporting security engineering work across application security, risk reduction, and secure delivery.",
+        "Applying hands-on vulnerability research, automation, and reporting experience to production security workflows.",
+      ],
+    },
     {
       org: "Students' Union UCL",
       role: "Student Ambassador",
