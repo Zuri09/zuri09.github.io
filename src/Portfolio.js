@@ -26,10 +26,13 @@ import {
 const DATA = {
   name: "Devansh Patel",
   role: "Security Engineering Intern | AppSec | GRC",
-  tagline:
-    "Security Engineering Intern at Freetrade, UCL MSc Information Security student, ISC2 CC, CNSP, C3SA, and bug bounty hunter in London.",
+  snapshot: [
+    "Security Engineering Intern at Freetrade",
+    "UCL MSc Information Security",
+    "ISC2 CC · CNSP · C3SA",
+  ],
   blurb:
-    "I find security gaps before attackers do, then help build the controls to stop those weaknesses from coming back. My work spans application security, DFIR, GRC, threat intelligence, web/API VAPT, evidence handling, risk reporting, remediation tracking, and security automation.",
+    "I turn vulnerability research into practical fixes across AppSec, GRC, DFIR, VAPT, risk reporting, remediation tracking, and security automation.",
   location: "London, United Kingdom",
   cta: {
     resumeUrl: "/Devansh_Patel_CV.pdf",
@@ -400,7 +403,11 @@ export default function Portfolio() {
               <h1>
                 Security researcher. Fixes built.
               </h1>
-              <p className="hero-lede">{DATA.tagline}</p>
+              <div className="hero-snapshot" aria-label="Current profile snapshot">
+                {DATA.snapshot.map((item) => (
+                  <span key={item}>{item}</span>
+                ))}
+              </div>
               <p className="hero-body">{DATA.blurb}</p>
 
               <div className="hero-actions" aria-label="Profile links">
